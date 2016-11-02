@@ -36,16 +36,16 @@ const NavBar = (props) => {
     return (
       <View style={styles.container}>
         <Button 
-          icon="ios-search-outline"   
-          onclick={() => moveTo(props.navigator, AddMeal)} 
-        />
-        <Button 
           icon="ios-list"  
           onclick={() => moveTo(props.navigator, MealList)} 
         />
         <Button 
           icon="ios-basket-outline" 
           onclick={() => moveTo(props.navigator, ShoppingList)} 
+        />
+        <Button 
+          icon="ios-search-outline"   
+          onclick={() => moveTo(props.navigator, AddMeal)} 
         />
       </View>
     );

@@ -10,7 +10,9 @@ import HeaderDisplay from './HeaderDisplay';
 import Button from './Button';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
+import styleVariables from '../styleVariables';
 
+const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
@@ -24,6 +26,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
+    backgroundColor: 'white'
   },
   picture: {
     width: width * 0.9,
@@ -46,6 +49,13 @@ const styles = StyleSheet.create({
   scroller: {
     marginBottom: 50,
   },
+  header: {
+    width,
+    height: 44,
+    backgroundColor: orange,
+    justifyContent: 'flex-start',
+    paddingLeft: 20
+  }
 });
 
 /* eslint-disable no-param-reassign */
@@ -73,23 +83,19 @@ const compileNutrition = (data) => {
 const InfoDisplay = props => (
   <View style={styles.container}>
     <HeadBuffer />
-    <HeaderDisplay recipe={props.recipe} />
-    <ScrollView contentContainerStyle={styles.scroller}>
-      <Image
-        style={styles.picture}
-        source={{ uri: props.recipe.image }}
+    <View style={styles.header}>
+      <Button 
+        icon='ios-arrow-back'
+        onclick={() => { props.navigator.pop(); }}
       />
+    </View>
+    <ScrollView contentContainerStyle={styles.scroller}>
       <View style={styles.buttonContainer}>
         <Button
           onclick={() => { props.postMeal(props.recipe._id, props.mealId); }} // eslint-disable-line
           text={props.text}
         />
-        <Button
-          onclick={() => { props.navigator.pop(); }}
-          text="Back"
-        />
       </View>
-
       <View style={styles.table}>
         <Column
           data={props.recipe.ingredients}
