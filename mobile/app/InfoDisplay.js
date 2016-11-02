@@ -82,10 +82,35 @@ class InfoDisplay extends React.Component {
       <View style={styles.container}>
         <HeadBuffer />
         <ButtonHeader navigator={this.props.navigator}/>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => { this.props.navigator.pop(); }}
+            hitSlop={{
+              top: 10,
+              bottom: 10,
+              left: 20,
+              right: 20,
+            }}
+          >
+           {/* <Ionicons
+              style={{ backgroundColor: 'transparent' }}
+              name={'ios-arrow-back'}
+              size={40}
+              color="white"
+            />*/}
+          </TouchableOpacity>
+        </View>
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
-            <AnimationTest />
+            <AnimationTest
+              nutrition={[
+                { label: 'steak', daily: '78', otherAtr: 'none' },
+                { label: 'cheese', daily: '55', otherAtr: 'none' },
+                { label: 'butter', daily: '29', otherAtr: 'none' },
+              ]}
+            />
           </View>
           {/* This section renders ingredients */}
           <View style={styles.table}>

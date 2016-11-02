@@ -46,15 +46,14 @@ const styles = StyleSheet.create({
 });
 
 export default class AnimationTest extends React.Component {
-  constructor() {
-    super();
-    const width = { steak: 5, cheese: 5, butter: 5 };
+  constructor(props) {
+    super(props);
+    this.state = {};
+    // Initialize nutrient values at 1 so that can animate up
+    props.nutrition.forEach((nutrient) => {
+      this.state[nutrient.label] = new Animated.Value(1);
+    });
     this.handleAnimation = this.handleAnimation.bind(this);
-    this.state = {
-      steak: new Animated.Value(width.steak),
-      cheese: new Animated.Value(width.cheese),
-      butter: new Animated.Value(width.butter),
-    };
   }
 
   componentDidMount() {
@@ -64,7 +63,7 @@ export default class AnimationTest extends React.Component {
 
   handleAnimation() {
     const timing = Animated.timing;
-    const width = { steak: 50, cheese: 45, butter: 25 };
+    const width = { steak: 100, cheese: 145, butter: 205 };
     const indicators = ['steak', 'cheese', 'butter'];
     Animated.parallel(indicators.map(item =>
       timing(this.state[item], { toValue: width[item] })
@@ -76,7 +75,6 @@ export default class AnimationTest extends React.Component {
 
     return (
       <View style={styles.container}>
-        {/* <Text onPress={this.handleAnimation}>Click me to animate</Text>*/}
         <Text style={styles.label}>Steak</Text>
         <View style={styles.data}>
           <Animated.View style={[styles.bar, styles.steak, { width: steak }]} />
