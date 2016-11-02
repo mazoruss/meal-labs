@@ -2,11 +2,9 @@ import React from 'react';
 import {
   ScrollView,
   View,
-  Image,
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import HeaderDisplay from './HeaderDisplay';
 import Button from './Button';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
@@ -81,68 +79,77 @@ const compileNutrition = (data) => {
 };
 /* eslint-enable no-param-reassign */
 
-const InfoDisplay = props => (
-  <View style={styles.container}>
-    <HeadBuffer />
-    <View style={styles.header}>
-      <Button
-        icon="ios-arrow-back"
-        onclick={() => { props.navigator.pop(); }}
-      />
-    </View>
-    <ScrollView contentContainerStyle={styles.scroller}>
-      <View style={styles.buttonContainer}>
-        <Button
-          onclick={() => { props.postMeal(props.recipe._id, props.mealId); }} // eslint-disable-line
-          text={props.text}
-        />
+class InfoDisplay extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      test: 'test',
+    };
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <HeadBuffer />
+        <View style={styles.header}>
+          <Button
+            icon="ios-arrow-back"
+            onclick={() => { this.props.navigator.pop(); }}
+          />
+        </View>
+        <ScrollView contentContainerStyle={styles.scroller}>
+          <View style={styles.buttonContainer}>
+            <Button
+              onclick={() => { this.props.postMeal(this.props.recipe._id, this.props.mealId); }} // eslint-disable-line
+            />
+          </View>
+          {/* This section renders animated nutrition info(is a mock atm) */}
+          <View>
+            <AnimationTest />
+          </View>
+          {/* This section renders ingredients */}
+          <View style={styles.table}>
+            <Column
+              data={this.props.recipe.ingredients}
+              name="Ingredient"
+              index="food"
+            />
+            <Column
+              data={this.props.recipe.ingredients}
+              name="Qty"
+              index="quantity"
+              alignRight
+            />
+            <Column
+              data={this.props.recipe.ingredients}
+              name="Unit"
+              index="measure"
+              alignRight
+            />
+          </View>
+          {/* This section renders nutrition info */}
+          <View style={styles.table}>
+            <Column
+              data={compileNutrition(this.props.recipe.digest)}
+              name="Nutrient"
+              index="label"
+            />
+            <Column
+              data={compileNutrition(this.props.recipe.digest)}
+              name="Qty"
+              index="totalUnit"
+              alignRight
+            />
+            <Column
+              data={compileNutrition(this.props.recipe.digest)}
+              name="Daily"
+              index="dailyPercent"
+              alignRight
+            />
+          </View>
+        </ScrollView>
       </View>
-      {/* This section renders animated nutrition info(is a mock atm) */}
-      <View>
-        <AnimationTest />
-      </View>
-      {/* This section renders ingredients */}
-      <View style={styles.table}>
-        <Column
-          data={props.recipe.ingredients}
-          name="Ingredient"
-          index="food"
-        />
-        <Column
-          data={props.recipe.ingredients}
-          name="Qty"
-          index="quantity"
-          alignRight
-        />
-        <Column
-          data={props.recipe.ingredients}
-          name="Unit"
-          index="measure"
-          alignRight
-        />
-      </View>
-      {/* This section renders nutrition info */}
-      <View style={styles.table}>
-        <Column
-          data={compileNutrition(props.recipe.digest)}
-          name="Nutrient"
-          index="label"
-        />
-        <Column
-          data={compileNutrition(props.recipe.digest)}
-          name="Qty"
-          index="totalUnit"
-          alignRight
-        />
-        <Column
-          data={compileNutrition(props.recipe.digest)}
-          name="Daily"
-          index="dailyPercent"
-          alignRight
-        />
-      </View>
-    </ScrollView>
-  </View>
-);
+    );
+  }
+}
 
 export default InfoDisplay;
