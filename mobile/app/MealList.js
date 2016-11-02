@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     backgroundColor: '#fff',
-    alignItems: 'center',
-    paddingBottom: 60,
+    alignItems: 'center'
   },
 });
 

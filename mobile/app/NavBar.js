@@ -35,9 +35,18 @@ const NavBar = (props) => {
   if (props.navigator.getCurrentRoutes().length > 1) {
     return (
       <View style={styles.container}>
-        <Button icon="md-list-box" onclick={() => moveTo(props.navigator, MealList)} />
-        <Button icon="md-basket" onclick={() => moveTo(props.navigator, ShoppingList)} />
-        <Button icon="md-add-circle" onclick={() => moveTo(props.navigator, AddMeal)} />
+        <Button 
+          icon="ios-search-outline"   
+          onclick={() => moveTo(props.navigator, AddMeal)} 
+        />
+        <Button 
+          icon="ios-list"  
+          onclick={() => moveTo(props.navigator, MealList)} 
+        />
+        <Button 
+          icon="ios-basket-outline" 
+          onclick={() => moveTo(props.navigator, ShoppingList)} 
+        />
       </View>
     );
   }

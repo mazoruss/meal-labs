@@ -48,16 +48,21 @@ const Button = ({ text, icon, onclick }) => {
           style={styles.container2}
           elevation={3}
         >
-          <Text style={styles.text}> {text} </Text>
+          <Text style={styles.text}> 
+            {text} 
+          </Text>
         </View>
       </TouchableHighlight>
     )
   }
   return (
-      <TouchableHighlight
-        onPress={onclick}
-      >
-       <Ionicons name={icon} size={39} color="white" onPress={onclick} /> 
+      <TouchableHighlight onPress={onclick}>
+        <Ionicons 
+          name={icon} 
+          size={39} 
+          color="white" 
+          onPress={onclick} 
+        /> 
       </TouchableHighlight>
   ) 
 };
