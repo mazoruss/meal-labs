@@ -16,8 +16,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     backgroundColor: '#fff',
-    alignItems: 'center',
-    paddingBottom: 60,
+    alignItems: 'center'
   },
 });
 
@@ -77,7 +76,6 @@ export default class AddMeal extends React.Component {
         <LogoDisplay />
         
         <ScrollView
-          contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
