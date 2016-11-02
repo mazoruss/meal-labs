@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   picture: {
     width: width * 0.9,
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     height: 44,
     backgroundColor: orange,
     justifyContent: 'flex-start',
-    paddingLeft: 20
-  }
+    paddingLeft: 20,
+  },
 });
 
 /* eslint-disable no-param-reassign */
@@ -85,8 +85,8 @@ const InfoDisplay = props => (
   <View style={styles.container}>
     <HeadBuffer />
     <View style={styles.header}>
-      <Button 
-        icon='ios-arrow-back'
+      <Button
+        icon="ios-arrow-back"
         onclick={() => { props.navigator.pop(); }}
       />
     </View>
@@ -97,6 +97,11 @@ const InfoDisplay = props => (
           text={props.text}
         />
       </View>
+      {/* This section renders animated nutrition info(is a mock atm) */}
+      <View>
+        <AnimationTest />
+      </View>
+      {/* This section renders ingredients */}
       <View style={styles.table}>
         <Column
           data={props.recipe.ingredients}
@@ -116,7 +121,7 @@ const InfoDisplay = props => (
           alignRight
         />
       </View>
-
+      {/* This section renders nutrition info */}
       <View style={styles.table}>
         <Column
           data={compileNutrition(props.recipe.digest)}
@@ -135,9 +140,6 @@ const InfoDisplay = props => (
           index="dailyPercent"
           alignRight
         />
-      </View>
-      <View>
-        <AnimationTest />
       </View>
     </ScrollView>
   </View>
