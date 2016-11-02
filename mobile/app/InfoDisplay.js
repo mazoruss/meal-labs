@@ -11,6 +11,7 @@ import Button from './Button';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import styleVariables from '../styleVariables';
+import AnimationTest from './AnimationTest';
 
 const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
@@ -135,7 +136,9 @@ const InfoDisplay = props => (
           alignRight
         />
       </View>
-
+      <View>
+        <AnimationTest />
+      </View>
     </ScrollView>
   </View>
 );
