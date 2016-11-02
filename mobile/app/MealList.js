@@ -12,11 +12,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   contentContainer: {
     backgroundColor: '#fff',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 
@@ -24,7 +24,8 @@ export default class MealList extends React.Component {
   constructor(props) {
     super(props);
     this.getData = this.getData.bind(this);
-    this.postMeal = this.postMeal.bind(this);
+    this.addMeal = this.addMeal.bind(this);
+    this.removeMeal = this.removeMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
   }
 
@@ -45,14 +46,27 @@ export default class MealList extends React.Component {
     });
   }
 
-  postMeal(recipeId, mealId) {
+  addMeal(recipeId) {
+    fetch(mealUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': this.props.getToken(),
+      },
+      body: JSON.stringify({
+        userId: this.props.getUserId(),
+        recipeId,
+      }),
+    })
+    .then(() => this.getData())
+  }
+
+  removeMeal(recipeId, mealId) {
     fetch(mealUrl + mealId, {
       method: 'DELETE',
       headers: { 'x-access-token': this.props.getToken() },
     })
-    .then(() => {
-      this.getData(() => this.props.navigator.pop());
-    });
+    .then(() => this.getData())
   }
 
   gotoNext(recipe, url, mealId) {
@@ -68,7 +82,10 @@ export default class MealList extends React.Component {
     });
   }
 
+
   render() {
+    const postMeal = this.postMeal;
+
     return (
       <View style={styles.container}>
         <HeadBuffer />
@@ -78,13 +95,16 @@ export default class MealList extends React.Component {
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          {this.props.getMealList().map((meal, i) => (
+          {this.props.mealList.map((meal, i) => (
             <MealTile
+              key={i}
               recipe={meal.recipe}
               url={meal.recipe.url}
               showInfo={this.gotoNext}
-              key={i}
-              mealId={meal._id} // eslint-disable-line no-underscore-dangle
+              mealId={meal._id} 
+              addMeal={this.addMeal}
+              removeMeal={this.removeMeal}
+              location='MealList'
             />
           ))}
         </ScrollView>

@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 export default class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
-    this.shoppingList = compileList(this.props.getMealList());
+    this.shoppingList = compileList(this.props.mealList);
   }
 
   render() {
