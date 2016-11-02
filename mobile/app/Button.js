@@ -1,5 +1,6 @@
-import React from 'react';
-import { Ionicons } from '@exponent/vector-icons';
+import React          from 'react';
+import { Components } from 'exponent';
+import { Ionicons }   from '@exponent/vector-icons';
 import { 
   View, 
   Text, 
@@ -22,6 +23,23 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     width: 100
+  },
+  iconButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'transparent',
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    margin: 2,
+    paddingTop: 3
+  },
+  blurWrapper: {
+    height: 55, 
+    width: 50, 
+    alignItems: 'center', 
+    justifyContent: 'center'
   }
 });
 
@@ -42,15 +60,26 @@ const Button = ({ text, icon, onclick }) => {
   }
   return (
       <TouchableOpacity 
+        style={styles.iconButton}
         onPress={onclick}
-        hitSlop={{top: 10, bottom: 10, left: 20, right: 20}}
+        hitSlop={{
+          top: 10, 
+          bottom: 10, 
+          left: 20, 
+          right: 20
+        }}
       >
-        <Ionicons 
-          name={icon} 
-          size={39} 
-          color="white" 
-          onPress={onclick} 
-        /> 
+        <Components.BlurView 
+          tintEffect='default'
+          style={styles.blurWrapper}
+        >
+          <Ionicons 
+            style={{backgroundColor: 'transparent'}}
+            name={icon} 
+            size={30} 
+            color="black" 
+          /> 
+        </Components.BlurView>
       </TouchableOpacity>
   ) 
 };

@@ -15,41 +15,49 @@ class App extends React.Component {
       searchRecipes: [],
       shoppingList: [],
     };
-    this.getMealList = this.getMealList.bind(this);
-    this.getToken = this.getToken.bind(this);
-    this.getUserId = this.getUserId.bind(this);
-    this.getSearchRecipes = this.getSearchRecipes.bind(this);
 
-    this.updateMealList = this.updateMealList.bind(this);
-    this.updateToken = this.updateToken.bind(this);
-    this.updateUserId = this.updateUserId.bind(this);
+    this.getToken            = this.getToken.bind(this);
+    this.getUserId           = this.getUserId.bind(this);
+    this.updateMealList      = this.updateMealList.bind(this);
+    this.updateToken         = this.updateToken.bind(this);
+    this.updateUserId        = this.updateUserId.bind(this);
     this.updateSearchRecipes = this.updateSearchRecipes.bind(this);
-    this.renderScene = this.renderScene.bind(this);
+    this.renderScene         = this.renderScene.bind(this);
+    this.removeMealFromList  = this.removeMealFromList.bind(this);
   }
 
-  getMealList() { return this.state.mealList; }
   getToken() { return this.state.token; }
   getUserId() { return this.state.userId; }
-  getSearchRecipes() { return this.state.searchRecipes; }
-
   updateMealList(mealList) { this.setState({ mealList }); }
   updateToken(token) { this.setState({ token }); }
   updateUserId(userId) { this.setState({ userId }); }
   updateSearchRecipes(searchRecipes) { this.setState({ searchRecipes }); }
+
+  removeMealFromList (meal) {
+    console.log('REMOVING', this.state.mealList.length)
+
+
+    this.setState({
+      mealList: this.state.mealList.filter(m => m.recipe.label !== meal.label)
+    });
+
+    setTimeout(()=> console.log('AFTER',this.state.mealList.length), 100)
+  }
 
   renderScene(route, navigator) {
     return (
       <route.component
         {...route.passProps}
         navigator={navigator}
-        getMealList={this.getMealList}
+        mealList={this.state.mealList}
         getToken={this.getToken}
         getUserId={this.getUserId}
-        getSearchRecipes={this.getSearchRecipes}
+        getSearchRecipes={this.state.searchRecipes}
         updateMealList={this.updateMealList}
         updateToken={this.updateToken}
         updateUserId={this.updateUserId}
         updateSearchRecipes={this.updateSearchRecipes}
+        removeMealFromList={this.removeMealFromList}
       />
     );
   }

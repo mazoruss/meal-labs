@@ -1,16 +1,20 @@
-import React from 'react';
+import React          from 'react';
+import { Ionicons }   from '@exponent/vector-icons';
+import HeaderDisplay  from './HeaderDisplay';
+import Button         from './Button';
+import Column         from './Column';
+import HeadBuffer     from './HeadBuffer';
+import styleVariables from '../styleVariables';
+
 import {
   ScrollView,
   View,
   Image,
   Dimensions,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native';
-import HeaderDisplay from './HeaderDisplay';
-import Button from './Button';
-import Column from './Column';
-import HeadBuffer from './HeadBuffer';
-import styleVariables from '../styleVariables';
+
 
 const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
@@ -84,17 +88,26 @@ const InfoDisplay = props => (
   <View style={styles.container}>
     <HeadBuffer />
     <View style={styles.header}>
-      <Button 
-        icon='ios-arrow-back'
-        onclick={() => { props.navigator.pop(); }}
-      />
+      <TouchableOpacity 
+        style={styles.iconButton}
+        onPress={() => { props.navigator.pop(); }}
+        hitSlop={{
+          top: 10, 
+          bottom: 10, 
+          left: 20, 
+          right: 20
+        }}
+      >
+        <Ionicons 
+          style={{backgroundColor: 'transparent'}}
+          name={'ios-arrow-back'} 
+          size={40} 
+          color="white" 
+        /> 
+      </TouchableOpacity>
     </View>
     <ScrollView contentContainerStyle={styles.scroller}>
       <View style={styles.buttonContainer}>
-        <Button
-          onclick={() => { props.postMeal(props.recipe._id, props.mealId); }} // eslint-disable-line
-          text={props.text}
-        />
       </View>
       <View style={styles.table}>
         <Column
