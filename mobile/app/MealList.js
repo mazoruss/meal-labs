@@ -12,11 +12,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   contentContainer: {
     backgroundColor: '#fff',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 

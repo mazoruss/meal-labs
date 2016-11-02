@@ -5,32 +5,24 @@ import Button         from './Button';
 import Column         from './Column';
 import HeadBuffer     from './HeadBuffer';
 import styleVariables from '../styleVariables';
+import AnimationTest  from './AnimationTest';
 
 import {
   ScrollView,
   View,
-  Image,
   Dimensions,
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
 
-
 const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    width: width * 0.9,
-    marginTop: 10,
-  },
   container: {
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   picture: {
     width: width * 0.9,
@@ -58,8 +50,8 @@ const styles = StyleSheet.create({
     height: 44,
     backgroundColor: orange,
     justifyContent: 'flex-start',
-    paddingLeft: 20
-  }
+    paddingLeft: 20,
+  },
 });
 
 /* eslint-disable no-param-reassign */
@@ -84,73 +76,85 @@ const compileNutrition = (data) => {
 };
 /* eslint-enable no-param-reassign */
 
-const InfoDisplay = props => (
-  <View style={styles.container}>
-    <HeadBuffer />
-    <View style={styles.header}>
-      <TouchableOpacity 
-        style={styles.iconButton}
-        onPress={() => { props.navigator.pop(); }}
-        hitSlop={{
-          top: 10, 
-          bottom: 10, 
-          left: 20, 
-          right: 20
-        }}
-      >
-        <Ionicons 
-          style={{backgroundColor: 'transparent'}}
-          name={'ios-arrow-back'} 
-          size={40} 
-          color="white" 
-        /> 
-      </TouchableOpacity>
-    </View>
-    <ScrollView contentContainerStyle={styles.scroller}>
-      <View style={styles.buttonContainer}>
+class InfoDisplay extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      test: 'test',
+    };
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <HeadBuffer />
+        <View style={styles.header}>
+          <TouchableOpacity 
+            style={styles.iconButton}
+            onPress={() => { this.props.navigator.pop(); }}
+            hitSlop={{
+              top: 10, 
+              bottom: 10, 
+              left: 20, 
+              right: 20
+            }}
+          >
+            <Ionicons 
+              style={{backgroundColor: 'transparent'}}
+              name={'ios-arrow-back'} 
+              size={40} 
+              color="white" 
+            /> 
+          </TouchableOpacity>
+        </View>
+        <ScrollView contentContainerStyle={styles.scroller}>
+          {/* This section renders animated nutrition info(is a mock atm) */}
+          <View>
+            <AnimationTest />
+          </View>
+          {/* This section renders ingredients */}
+          <View style={styles.table}>
+            <Column
+              data={this.props.recipe.ingredients}
+              name="Ingredient"
+              index="food"
+            />
+            <Column
+              data={this.props.recipe.ingredients}
+              name="Qty"
+              index="quantity"
+              alignRight
+            />
+            <Column
+              data={this.props.recipe.ingredients}
+              name="Unit"
+              index="measure"
+              alignRight
+            />
+          </View>
+          {/* This section renders nutrition info */}
+          <View style={styles.table}>
+            <Column
+              data={compileNutrition(this.props.recipe.digest)}
+              name="Nutrient"
+              index="label"
+            />
+            <Column
+              data={compileNutrition(this.props.recipe.digest)}
+              name="Qty"
+              index="totalUnit"
+              alignRight
+            />
+            <Column
+              data={compileNutrition(this.props.recipe.digest)}
+              name="Daily"
+              index="dailyPercent"
+              alignRight
+            />
+          </View>
+        </ScrollView>
       </View>
-      <View style={styles.table}>
-        <Column
-          data={props.recipe.ingredients}
-          name="Ingredient"
-          index="food"
-        />
-        <Column
-          data={props.recipe.ingredients}
-          name="Qty"
-          index="quantity"
-          alignRight
-        />
-        <Column
-          data={props.recipe.ingredients}
-          name="Unit"
-          index="measure"
-          alignRight
-        />
-      </View>
-
-      <View style={styles.table}>
-        <Column
-          data={compileNutrition(props.recipe.digest)}
-          name="Nutrient"
-          index="label"
-        />
-        <Column
-          data={compileNutrition(props.recipe.digest)}
-          name="Qty"
-          index="totalUnit"
-          alignRight
-        />
-        <Column
-          data={compileNutrition(props.recipe.digest)}
-          name="Daily"
-          index="dailyPercent"
-          alignRight
-        />
-      </View>
-
-    </ScrollView>
-  </View>
-);
+    );
+  }
+}
 
 export default InfoDisplay;
