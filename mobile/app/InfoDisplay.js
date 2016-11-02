@@ -100,6 +100,7 @@ class InfoDisplay extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               onclick={() => { this.props.postMeal(this.props.recipe._id, this.props.mealId); }} // eslint-disable-line
+              text={this.props.text}
             />
           </View>
           {/* This section renders animated nutrition info(is a mock atm) */}
