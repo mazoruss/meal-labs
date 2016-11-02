@@ -49,11 +49,17 @@ export default class AnimationTest extends React.Component {
   constructor() {
     super();
     const width = { steak: 5, cheese: 5, butter: 5 };
+    this.handleAnimation = this.handleAnimation.bind(this);
     this.state = {
       steak: new Animated.Value(width.steak),
       cheese: new Animated.Value(width.cheese),
       butter: new Animated.Value(width.butter),
     };
+  }
+
+  componentDidMount() {
+    const animate = this.handleAnimation;
+    setTimeout(animate, 300);
   }
 
   handleAnimation() {
@@ -70,7 +76,7 @@ export default class AnimationTest extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text onPress={this.handleAnimation.bind(this)}>Click me to animate</Text>
+        {/* <Text onPress={this.handleAnimation}>Click me to animate</Text>*/}
         <Text style={styles.label}>Steak</Text>
         <View style={styles.data}>
           <Animated.View style={[styles.bar, styles.steak, { width: steak }]} />

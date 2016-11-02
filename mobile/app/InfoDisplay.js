@@ -76,6 +76,7 @@ class InfoDisplay extends React.Component {
       test: 'test',
     };
   }
+
   render() {
     return (
       <View style={styles.container}>
