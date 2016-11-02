@@ -1,12 +1,14 @@
 import React from 'react';
 import {
   ScrollView,
+  Text,
   View,
   Image,
   Dimensions,
   StyleSheet,
 } from 'react-native';
 import HeaderDisplay from './HeaderDisplay';
+import Instructions from './Instructions';
 import Button from './Button';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
@@ -136,6 +138,11 @@ const InfoDisplay = props => (
         />
       </View>
 
+      <View style={styles.container}>
+        <Instructions
+          url={props.url}
+        />
+      </View>
     </ScrollView>
   </View>
 );

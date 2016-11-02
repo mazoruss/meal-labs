@@ -55,11 +55,12 @@ export default class MealList extends React.Component {
     });
   }
 
-  gotoNext(recipe, mealId) {
+  gotoNext(recipe, url, mealId) {
     this.props.navigator.push({
       component: InfoDisplay,
       passProps: {
         recipe,
+        url,
         mealId,
         postMeal: this.postMeal,
         text: 'Remove',
@@ -80,6 +81,7 @@ export default class MealList extends React.Component {
           {this.props.getMealList().map((meal, i) => (
             <MealTile
               recipe={meal.recipe}
+              url={meal.recipe.url}
               showInfo={this.gotoNext}
               key={i}
               mealId={meal._id} // eslint-disable-line no-underscore-dangle
