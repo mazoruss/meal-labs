@@ -1,25 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { Ionicons } from '@exponent/vector-icons';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  TouchableOpacity
+} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    width: 105,
-    height: 40,
-    backgroundColor: 'white',
-    borderWidth: 3,
-    borderColor: 'white',
-    alignItems: 'center',
-    borderRadius: 5,
-    shadowColor: 'black',
-    justifyContent: 'center',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowRadius: 2,
-    shadowOpacity: 0.85,
-  },
   container2: {
     width: 100,
     height: 35,
@@ -31,34 +19,39 @@ const styles = StyleSheet.create({
   text: {
     justifyContent: 'center',
     fontSize: 20,
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: 'white',
-    borderRadius: 5,
   },
+  iconWrapper: {
+    width: 100
+  }
 });
 
 const Button = ({ text, icon, onclick }) => { 
   if(text !== undefined) {
     return (
-      <TouchableHighlight
-        style={styles.container}
-        onPress={onclick}
-      >
+      <TouchableOpacity onPress={onclick}>
         <View
           style={styles.container2}
           elevation={3}
         >
-          <Text style={styles.text}> {text} </Text>
+          <Text style={styles.text}> 
+            {text} 
+          </Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
   return (
-      <TouchableHighlight
+      <TouchableOpacity 
         onPress={onclick}
+        hitSlop={{top: 10, bottom: 10, left: 20, right: 20}}
       >
-       <Ionicons name={icon} size={39} color="white" onPress={onclick} /> 
-      </TouchableHighlight>
+        <Ionicons 
+          name={icon} 
+          size={39} 
+          color="white" 
+          onPress={onclick} 
+        /> 
+      </TouchableOpacity>
   ) 
 };
 

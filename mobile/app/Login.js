@@ -1,4 +1,8 @@
-import React from 'react';
+import React          from 'react';
+import t              from 'tcomb-form-native';
+import MealList       from './MealList';
+import styleVariables from '../styleVariables';
+import { Components } from 'exponent';
 import {
   AsyncStorage,
   StyleSheet,
@@ -9,32 +13,43 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import t from 'tcomb-form-native';
-import MealList from './MealList';
 
+const { orange, gray } = styleVariables;
 const width = Dimensions.get('window').width;
+
+t.form.Form.stylesheet.textbox.normal = {
+  color: 'white',
+  fontSize: 14,
+  height: 36,
+  padding: 7,
+  borderColor: 'rgba(255,255,255,.3)',
+  borderWidth: 1,
+  borderRadius: 2,
+  marginBottom: 5,
+  fontWeight: 'bold'
+}
+
+t.form.Form.stylesheet.controlLabel.normal = {
+  color: 'white',
+  fontSize: 17,
+  marginBottom: 7
+}
 
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    // backgroundColor: 'black',
   },
   container: {
     justifyContent: 'center',
-    // alignItems: 'center',
     alignSelf: 'center',
     marginTop: 30,
     width: width * 0.9,
     borderRadius: 5,
     flexDirection: 'column',
-    // width: 150,
-    // height: 300,
     padding: 20,
-    backgroundColor: 'rgba(255,255,255,.75)',
   },
   title: {
     fontSize: 50,
-    fontFamily: 'Futura',
     marginTop: 30,
     backgroundColor: 'transparent',
     alignSelf: 'center',
@@ -42,7 +57,7 @@ const styles = StyleSheet.create({
     color: 'white',
     opacity: 1,
     textAlign: 'center',
-    textShadowColor: 'black',
+    textShadowColor: 'rgba(0,0,0,.2)',
     textShadowRadius: 2,
     textShadowOffset: {
       width: 2,
@@ -56,10 +71,8 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: 'green',
-    borderColor: 'green',
-    borderWidth: 1,
-    borderRadius: 5,
+    backgroundColor: orange,
+    borderRadius: 2,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -110,15 +123,6 @@ export default class Login extends React.Component {
     });
   }
 
-  // login() {
-  //   AsyncStorage.getItem('userId', (err, result) => {
-  //     this.setState( { userId: result });
-  //   });
-  //   AsyncStorage.getItem('token', (err, result) => {
-  //     this.setState( { token: result });
-  //   });
-  // }
-
   authUser(url) {
     const value = this.refs.form.getValue();
     if (value) {
@@ -159,9 +163,12 @@ export default class Login extends React.Component {
           style={styles.backgroundImage}
         >
           <View style={styles.row}>
-            <Text style={styles.title}>Meal.next</Text>
+            <Text style={styles.title}>Meal Labs</Text>
           </View>
-          <View style={styles.container}>
+          <Components.BlurView 
+            tintEffect='default'
+            style={styles.container}
+          >
             <View style={styles.row}>
               <Form
                 ref="form"
@@ -173,19 +180,19 @@ export default class Login extends React.Component {
               <TouchableHighlight
                 style={styles.button}
                 onPress={() => this.authUser(loginUrl)}
-                underlayColor="limegreen"
+                underlayColor={gray}
               >
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableHighlight>
               <TouchableHighlight
                 style={styles.button}
                 onPress={() => this.authUser(signupUrl)}
-                underlayColor="limegreen"
+                underlayColor={gray}
               >
                 <Text style={styles.buttonText}>Signup</Text>
               </TouchableHighlight>
             </View>
-          </View>
+          </Components.BlurView>
         </Image>
       </View>
     );

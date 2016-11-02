@@ -60,7 +60,7 @@ class App extends React.Component {
         style={{ flex: 1 }}
         initialRoute={{ name: 'Login', component: Login }}
         renderScene={this.renderScene}
-        configureScene={() => Navigator.SceneConfigs.FadeAndroid}
+        configureScene={() => Navigator.SceneConfigs.PushFromRight}
         navigationBar={<NavBar navigator={this.navigator} />}
       />
     );
