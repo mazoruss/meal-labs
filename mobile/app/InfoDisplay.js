@@ -1,27 +1,24 @@
-import React from 'react';
+import React          from 'react';
+import { Ionicons }   from '@exponent/vector-icons';
+import HeaderDisplay  from './HeaderDisplay';
+import Button         from './Button';
+import Column         from './Column';
+import HeadBuffer     from './HeadBuffer';
+import styleVariables from '../styleVariables';
+import AnimationTest  from './AnimationTest';
+
 import {
   ScrollView,
   View,
   Dimensions,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native';
-import Button from './Button';
-import Column from './Column';
-import HeadBuffer from './HeadBuffer';
-import styleVariables from '../styleVariables';
-import AnimationTest from './AnimationTest';
 
 const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    width: width * 0.9,
-    marginTop: 10,
-  },
   container: {
     alignItems: 'center',
     flex: 1,
@@ -91,18 +88,25 @@ class InfoDisplay extends React.Component {
       <View style={styles.container}>
         <HeadBuffer />
         <View style={styles.header}>
-          <Button
-            icon="ios-arrow-back"
-            onclick={() => { this.props.navigator.pop(); }}
-          />
+          <TouchableOpacity 
+            style={styles.iconButton}
+            onPress={() => { this.props.navigator.pop(); }}
+            hitSlop={{
+              top: 10, 
+              bottom: 10, 
+              left: 20, 
+              right: 20
+            }}
+          >
+            <Ionicons 
+              style={{backgroundColor: 'transparent'}}
+              name={'ios-arrow-back'} 
+              size={40} 
+              color="white" 
+            /> 
+          </TouchableOpacity>
         </View>
         <ScrollView contentContainerStyle={styles.scroller}>
-          <View style={styles.buttonContainer}>
-            <Button
-              onclick={() => { this.props.postMeal(this.props.recipe._id, this.props.mealId); }} // eslint-disable-line
-              text={this.props.text}
-            />
-          </View>
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
             <AnimationTest />

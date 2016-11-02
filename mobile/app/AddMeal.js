@@ -8,6 +8,7 @@ import HeadBuffer from './HeadBuffer';
 
 const recipeUrl = 'https://mealdotnext4.herokuapp.com/api/recipe/';
 const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/';
+const userUrl = 'https://mealdotnext4.herokuapp.com/api/user/';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contentContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center'
   },
 });
@@ -24,7 +25,7 @@ export default class AddMeal extends React.Component {
   constructor(props) {
     super(props);
     this.getData = this.getData.bind(this);
-    this.postMeal = this.postMeal.bind(this);
+    this.addMeal = this.addMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
   }
 
@@ -41,7 +42,8 @@ export default class AddMeal extends React.Component {
     }).done();
   }
 
-  postMeal(recipeId) {
+
+  addMeal(recipeId) {
     fetch(mealUrl, {
       method: 'POST',
       headers: {
@@ -53,9 +55,6 @@ export default class AddMeal extends React.Component {
         recipeId,
       }),
     })
-    .then(() => {
-      this.props.navigator.pop();
-    });
   }
 
   gotoNext(recipe) {
@@ -70,6 +69,8 @@ export default class AddMeal extends React.Component {
   }
 
   render() {
+    const postMeal = this.postMeal;
+    const isInList = this.props.isInList;
     return (
       <View style={styles.container}>
         <HeadBuffer />
@@ -81,11 +82,13 @@ export default class AddMeal extends React.Component {
         >
           <Searchbar enter={this.getData} />
           
-          {this.props.getSearchRecipes().map((meal, i) => (
+          {this.props.getSearchRecipes.map((meal, i) => (
             <MealTile
               recipe={meal}
               showInfo={this.gotoNext}
               key={i}
+              addMeal={this.addMeal}
+              location='AddMeal'
             />
           ))}
         </ScrollView>
