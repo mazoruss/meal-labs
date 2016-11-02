@@ -33,7 +33,7 @@ export default class AnimationTest extends React.Component {
   
    return (
       <View style={styles.container}>
-        <Text onPress={this.handleAnimation.bind(this)}>Button</Text>
+        <Text onPress={this.handleAnimation.bind(this)}>Click me to animate</Text>
           <Text style={styles.label}>Steak</Text>
           <View style={styles.data}>
             <Animated.View style={[styles.bar, styles.steak, {width: steak}]} />
