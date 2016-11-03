@@ -4,9 +4,11 @@ import ButtonHeader   from './ButtonHeader';
 import {
   WebView,
   View,
-  Text,
+  Dimensions,
   StyleSheet,
 } from 'react-native';
+
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -26,11 +28,8 @@ export default class Instructions extends React.Component {
       <View style={styles.container}>
         <HeadBuffer />
         <ButtonHeader navigator={this.props.navigator}/>
-        <Text>
-          {this.props.url}
-        </Text>
         <WebView
-          style={{flex: 1}}
+          style={{width: width}}
           source={{uri: this.props.url}}
         />
       </View>
