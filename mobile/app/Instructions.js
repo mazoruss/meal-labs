@@ -3,9 +3,18 @@ import HeadBuffer     from './HeadBuffer';
 import ButtonHeader   from './ButtonHeader';
 import {
   WebView,
-  Text,
   View,
+  Text,
+  StyleSheet,
 } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});
 
 export default class Instructions extends React.Component {
   constructor(props) {
@@ -14,7 +23,7 @@ export default class Instructions extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <HeadBuffer />
         <ButtonHeader navigator={this.props.navigator}/>
         <Text>
