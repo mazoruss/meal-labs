@@ -1,21 +1,17 @@
-import React          from 'react';
-import HeaderDisplay  from './HeaderDisplay';
-import Column         from './Column';
-import HeadBuffer     from './HeadBuffer';
-import ButtonHeader   from './ButtonHeader';
-import styleVariables from '../styleVariables';
-import AnimationTest  from './AnimationTest';
-
 import {
   ScrollView,
-  Text,
   View,
   Dimensions,
   StyleSheet,
-  TouchableOpacity
 } from 'react-native';
 
-const { orange } = styleVariables;
+import React          from 'react';
+import Column         from './Column';
+import HeadBuffer     from './HeadBuffer';
+import ButtonHeader   from './ButtonHeader';
+import NutritionStats  from './NutritionStats';
+
+
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
@@ -80,11 +76,14 @@ class InfoDisplay extends React.Component {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <ButtonHeader navigator={this.props.navigator}/>
+        <ButtonHeader navigator={this.props.navigator} />
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
-            <AnimationTest />
+            <NutritionStats
+              nutrition={this.props.recipe.digest
+                .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
+            />
           </View>
           {/* This section renders ingredients */}
           <View style={styles.table}>
