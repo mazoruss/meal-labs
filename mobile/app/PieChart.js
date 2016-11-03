@@ -4,10 +4,17 @@
 
 /* @flow */
 import React from 'react';
-import { ART, View } from 'react-native';
+import { ART, View, StyleSheet } from 'react-native';
 import Wedge from './Wedge';
 
 const { Group, Surface } = ART;
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    marginTop: 5,
+  },
+});
 
 const getColor = (colors, index) => colors[index] || colors[colors.length % index];
 
@@ -64,7 +71,7 @@ export default class PieChart extends React.Component {
       startAngle += sectionPiece;
     });
     return (
-      <View>
+      <View style={styles.container}>
         <Surface width={this.props.width} height={this.props.height}>
           <Group
             originX={centerX}
