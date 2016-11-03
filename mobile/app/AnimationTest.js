@@ -13,26 +13,34 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   // Item
+  item: {
+    flexDirection: 'column',
+    marginBottom: 5,
+    paddingHorizontal: 10,
+  },
   label: {
-    color: '#CBCBCB',
+    color: '#3D3D3D',
     flex: 1,
     fontSize: 12,
     position: 'relative',
-    alignSelf: 'flex-end',
     top: 2,
+    height: 10,
   },
   data: {
     flex: 2,
     flexDirection: 'row',
   },
   dataNumber: {
-    color: '#CBCBCB',
-    fontSize: 11,
+    color: '#3D3D3D',
+    fontSize: 12,
+    marginBottom: 5,
+    height: 14,
   },
   // Bar
   bar: {
+    alignSelf: 'center',
     borderRadius: 5,
-    height: 8,
+    height: 10,
     marginRight: 5,
     backgroundColor: '#59838B',
   },
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
 export default class AnimationTest extends React.Component {
   static getWidth(data) {
     const deviceWidth = Dimensions.get('window').width;
-    const maxWidth = deviceWidth * 0.8;
+    const maxWidth = deviceWidth * 0.85;
     const width = data < 100 ? (data / 100) * maxWidth : maxWidth;
     return width;
   }
@@ -61,7 +69,6 @@ export default class AnimationTest extends React.Component {
     setTimeout(animate, 300);
   }
 
-
   handleAnimation() {
     Animated.parallel(this.props.nutrition.map(nutrient =>
       Animated.timing(
@@ -75,7 +82,7 @@ export default class AnimationTest extends React.Component {
     return (
       <View style={styles.container}>
         {this.props.nutrition.map(nutrient => (
-          <View>
+          <View key={nutrient.label} style={styles.item}>
             <Text style={styles.label}>{nutrient.label}</Text>
             <View style={styles.data}>
               <Animated.View style={[styles.bar, { width: this.nutrients[nutrient.label] }]} />
