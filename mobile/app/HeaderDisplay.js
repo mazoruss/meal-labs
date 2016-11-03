@@ -1,11 +1,11 @@
 import React from 'react';
-import styleVariables from '../styleVariables';
-import { 
-  View, 
-  Dimensions, 
-  Text, 
-  StyleSheet 
+import {
+  View,
+  Dimensions,
+  Text,
+  StyleSheet,
 } from 'react-native';
+import styleVariables from '../styleVariables';
 
 
 const { orange } = styleVariables;

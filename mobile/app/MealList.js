@@ -60,7 +60,7 @@ export default class MealList extends React.Component {
         recipeId,
       }),
     })
-    .then(() => this.getData())
+    .then(() => this.getData());
   }
 
   removeMeal(recipeId, mealId) {
@@ -68,7 +68,7 @@ export default class MealList extends React.Component {
       method: 'DELETE',
       headers: { 'x-access-token': this.props.getToken() },
     })
-    .then(() => this.getData())
+    .then(() => this.getData());
   }
 
   gotoNext(recipe, mealId) {
@@ -83,11 +83,11 @@ export default class MealList extends React.Component {
     });
   }
 
-  gotoInstructions(url) {
+  gotoInstructions(uri) {
     this.props.navigator.push({
       component: Instructions,
       passProps: {
-        url,
+        uri,
       },
     });
   }
