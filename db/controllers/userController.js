@@ -76,14 +76,22 @@ Helper functions mainly used by the mealController
 exports.deleteUserMeal = (userId, mealId) => User.findOne({ _id: userId })
     .then((foundUser) => {
       foundUser.mealIds.splice(foundUser.mealIds.indexOf(mealId), 1);
-      return User.findByIdAndUpdate({ _id: userId }, { $set: { mealIds: foundUser.mealIds } }, { new: true });
+      return User.findByIdAndUpdate(
+        { _id: userId },
+        { $set: { mealIds: foundUser.mealIds } },
+        { new: true }
+      );
     })
     .then(updatedUser => updatedUser);
 
 exports.addUserMeal = (userId, mealId) => User.findOne({ _id: userId })
     .then((foundUser) => {
       foundUser.mealIds.push(mealId);
-      return User.findByIdAndUpdate({ _id: userId }, { $set: { mealIds: foundUser.mealIds } }, { new: true });
+      return User.findByIdAndUpdate(
+        { _id: userId },
+        { $set: { mealIds: foundUser.mealIds } },
+        { new: true }
+      );
     })
     .then(updatedUser => updatedUser)
     .catch(error => error);
@@ -92,6 +100,10 @@ exports.eatUserMeal = (userId, mealId) => User.findOne({ _id: userId })
     .then((foundUser) => {
       foundUser.mealIds.splice(foundUser.mealIds.indexOf(mealId), 1);
       foundUser.pastMealIds.push(mealId);
-      return User.findByIdAndUpdate({ _id: userId }, { $set: { mealIds: foundUser.mealIds, pastMealIds: foundUser.pastMealIds } }, { new: true });
+      return User.findByIdAndUpdate(
+        { _id: userId },
+        { $set: { mealIds: foundUser.mealIds, pastMealIds: foundUser.pastMealIds } },
+        { new: true }
+      );
     })
     .then(updatedUser => updatedUser);

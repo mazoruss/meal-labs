@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   table: {
     width: width * 0.9,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
-  }
+  },
 });
 
 export default class ShoppingList extends React.Component {
