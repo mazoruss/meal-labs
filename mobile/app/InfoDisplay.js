@@ -4,13 +4,14 @@ import {
   View,
   Dimensions,
   StyleSheet,
+  ART,
 } from 'react-native';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
+import PieChart from './PieChart';
 import Wedge from './Wedge';
-import { ART } from 'react-native';
 
 const { Surface } = ART;
 
@@ -83,14 +84,11 @@ class InfoDisplay extends React.Component {
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info */}
           <View>
-            <Surface width={width} height={width}>
-              <Wedge
-                outerRadius={(0.9 * width) / 2}
-                startAngle={30}
-                endAngle={180}
-                fill="#59838B"
+              <PieChart
+                height={0.9 * width}
+                width={0.9 * width}
+                data={[33, 54, 12]}
               />
-            </Surface>
             <NutritionStats
               nutrition={this.props.recipe.digest
                 .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
