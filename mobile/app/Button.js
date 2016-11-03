@@ -1,11 +1,11 @@
-import React          from 'react';
+import React from 'react';
 import { Components } from 'exponent';
-import { Ionicons }   from '@exponent/vector-icons';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity
+import { Ionicons } from '@exponent/vector-icons';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   iconWrapper: {
-    width: 100
+    width: 100,
   },
   iconButton: {
     width: 50,
@@ -33,55 +33,55 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
     margin: 2,
-    paddingTop: 3
+    paddingTop: 3,
   },
   blurWrapper: {
-    height: 55, 
-    width: 50, 
-    alignItems: 'center', 
-    justifyContent: 'center'
-  }
+    height: 55,
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
-const Button = ({ text, icon, onclick }) => { 
-  if(text !== undefined) {
+const Button = ({ text, icon, onclick }) => {
+  if (text !== undefined) {
     return (
       <TouchableOpacity onPress={onclick}>
         <View
           style={styles.container2}
           elevation={3}
         >
-          <Text style={styles.text}> 
-            {text} 
+          <Text style={styles.text}>
+            {text}
           </Text>
         </View>
       </TouchableOpacity>
-    )
+    );
   }
   return (
-      <TouchableOpacity 
-        style={styles.iconButton}
-        onPress={onclick}
-        hitSlop={{
-          top: 10, 
-          bottom: 10, 
-          left: 20, 
-          right: 20
-        }}
+    <TouchableOpacity
+      style={styles.iconButton}
+      onPress={onclick}
+      hitSlop={{
+        top: 10,
+        bottom: 10,
+        left: 20,
+        right: 20,
+      }}
+    >
+      <Components.BlurView
+        tintEffect="default"
+        style={styles.blurWrapper}
       >
-        <Components.BlurView 
-          tintEffect='default'
-          style={styles.blurWrapper}
-        >
-          <Ionicons 
-            style={{backgroundColor: 'transparent'}}
-            name={icon} 
-            size={30} 
-            color="black" 
-          /> 
-        </Components.BlurView>
-      </TouchableOpacity>
-  ) 
+        <Ionicons
+          style={{ backgroundColor: 'transparent' }}
+          name={icon}
+          size={30}
+          color="black"
+        />
+      </Components.BlurView>
+    </TouchableOpacity>
+  );
 };
 
 export default Button;
