@@ -1,9 +1,8 @@
 import React          from 'react';
-import { Ionicons }   from '@exponent/vector-icons';
 import HeaderDisplay  from './HeaderDisplay';
-import Button         from './Button';
 import Column         from './Column';
 import HeadBuffer     from './HeadBuffer';
+import ButtonHeader   from './ButtonHeader';
 import styleVariables from '../styleVariables';
 import AnimationTest  from './AnimationTest';
 
@@ -46,13 +45,6 @@ const styles = StyleSheet.create({
   scroller: {
     marginBottom: 50,
   },
-  header: {
-    width,
-    height: 44,
-    backgroundColor: orange,
-    justifyContent: 'flex-start',
-    paddingLeft: 20,
-  },
 });
 
 /* eslint-disable no-param-reassign */
@@ -88,25 +80,7 @@ class InfoDisplay extends React.Component {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <View style={styles.header}>
-          <TouchableOpacity 
-            style={styles.iconButton}
-            onPress={() => { this.props.navigator.pop(); }}
-            hitSlop={{
-              top: 10, 
-              bottom: 10, 
-              left: 20, 
-              right: 20
-            }}
-          >
-            <Ionicons 
-              style={{backgroundColor: 'transparent'}}
-              name={'ios-arrow-back'} 
-              size={40} 
-              color="white" 
-            /> 
-          </TouchableOpacity>
-        </View>
+        <ButtonHeader navigator={this.props.navigator}/>
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
@@ -150,12 +124,6 @@ class InfoDisplay extends React.Component {
               name="Daily"
               index="dailyPercent"
               alignRight
-            />
-          </View>
-          
-          <View style={styles.container}>
-            <Instructions
-              url={props.url}
             />
           </View>
         </ScrollView>

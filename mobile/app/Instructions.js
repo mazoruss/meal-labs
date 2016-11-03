@@ -1,4 +1,6 @@
-import React from 'react';
+import React          from 'react';
+import HeadBuffer     from './HeadBuffer';
+import ButtonHeader   from './ButtonHeader';
 import {
   WebView,
   Text,
@@ -13,6 +15,8 @@ export default class Instructions extends React.Component {
   render() {
     return (
       <View>
+        <HeadBuffer />
+        <ButtonHeader navigator={this.props.navigator}/>
         <Text>
           {this.props.url}
         </Text>
