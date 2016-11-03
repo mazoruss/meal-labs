@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   contentContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 
@@ -54,7 +54,7 @@ export default class AddMeal extends React.Component {
         userId: this.props.getUserId(),
         recipeId,
       }),
-    })
+    });
   }
 
   gotoNext(recipe) {
@@ -68,29 +68,27 @@ export default class AddMeal extends React.Component {
     });
   }
 
-  gotoInstructions(url) {
+  gotoInstructions(uri) {
     this.props.navigator.push({
       component: Instructions,
       passProps: {
-        url,
+        uri,
       },
     });
   }
 
   render() {
-    const postMeal = this.postMeal;
-    const isInList = this.props.isInList;
     return (
       <View style={styles.container}>
         <HeadBuffer />
         <LogoDisplay />
-        
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          <Searchbar enter={this.getData} /> 
-          
+          <Searchbar enter={this.getData} />
+
           {this.props.getSearchRecipes.map((meal, i) => (
             <MealTile
               recipe={meal}
@@ -99,7 +97,7 @@ export default class AddMeal extends React.Component {
               showInstructions={this.gotoInstructions}
               key={i}
               addMeal={this.addMeal}
-              location='AddMeal'
+              location="AddMeal"
             />
           ))}
         </ScrollView>

@@ -1,39 +1,36 @@
 import React from 'react';
 import { Components } from 'exponent';
-import styleVariables from '../styleVariables';
-import Button from './Button'
-import { 
-  View, 
-  Image, 
-  Dimensions, 
-  Text, 
-  StyleSheet, 
-  TouchableHighlight 
+import {
+  View,
+  Image,
+  Dimensions,
+  Text,
+  StyleSheet,
 } from 'react-native';
+import Button from './Button';
 
-const { gray } = styleVariables;
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   tile: {
-    width: width,
+    width,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
   },
   picture: {
     height: 340,
-    width: width,
+    width,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    position: 'relative'
+    position: 'relative',
   },
   headline: {
-    width: width,
+    width,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: '100',
-    color: 'rgba(0,0,0,.9)'
+    color: 'rgba(0,0,0,.9)',
   },
   textBackground: {
     padding: 20,
@@ -43,11 +40,11 @@ const styles = StyleSheet.create({
   buttonsWrapper: {
     position: 'absolute',
     bottom: 20,
-    right: 20
-  }
+    right: 20,
+  },
 });
 
-const Tile = ({ 
+const Tile = ({
   recipe,
   mealId,
   url,
@@ -55,17 +52,17 @@ const Tile = ({
   showInstructions,
   addMeal,
   removeMeal,
-  location
+  location,
 }) => (
 
   <View style={styles.tile}>
     <Image
       style={styles.picture}
       source={{ uri: recipe.image }}
-    > 
-      <Components.BlurView 
+    >
+      <Components.BlurView
         style={styles.textBackground}
-        tintEffect='light'
+        tintEffect="light"
       >
         <Text style={styles.headline}>
           {recipe.label}
