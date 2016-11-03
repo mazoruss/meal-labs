@@ -1,11 +1,12 @@
-import React          from 'react';
-import styleVariables from '../styleVariables';
-import { 
-  View, 
-  Dimensions, 
-  Text, 
-  StyleSheet 
+import {
+  View,
+  Dimensions,
+  Text,
+  StyleSheet,
 } from 'react-native';
+
+import React from 'react';
+import styleVariables from '../styleVariables';
 
 const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 2,
     color: 'white',
-    fontWeight: '100'
+    fontWeight: '100',
   },
 });
 

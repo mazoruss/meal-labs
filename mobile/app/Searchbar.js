@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   StyleSheet,
   TextInput,
   Dimensions,
@@ -28,7 +27,7 @@ export default class Searchbar extends React.Component {
   }
 
   reset() {
-    this.setState({ text: '' })
+    this.setState({ text: '' });
   }
 
   render() {
@@ -40,7 +39,7 @@ export default class Searchbar extends React.Component {
         placeholder="Search..."
         onSubmitEditing={() => {
           this.props.enter(this.state.text);
-          this.reset()
+          this.reset();
         }}
         returnKeyType={'search'}
       />
