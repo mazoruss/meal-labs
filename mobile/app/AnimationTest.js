@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 export default class AnimationTest extends React.Component {
   static getWidth(data) {
     const deviceWidth = Dimensions.get('window').width;
-    const maxWidth = deviceWidth - 50;
+    const maxWidth = deviceWidth * 0.8;
     const width = data < 100 ? (data / 100) * maxWidth : maxWidth;
     return width;
   }
@@ -79,7 +79,7 @@ export default class AnimationTest extends React.Component {
             <Text style={styles.label}>{nutrient.label}</Text>
             <View style={styles.data}>
               <Animated.View style={[styles.bar, { width: this.nutrients[nutrient.label] }]} />
-              <Text style={styles.dataNumber}>{nutrient.daily}</Text>
+              <Text style={styles.dataNumber}>{Math.round(nutrient.daily)}</Text>
             </View>
           </View>
         ))}

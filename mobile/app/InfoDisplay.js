@@ -105,11 +105,8 @@ class InfoDisplay extends React.Component {
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
             <AnimationTest
-              nutrition={[
-                { label: 'fat', daily: 68, otherAtr: 'none' },
-                { label: 'protein', daily: 75, otherAtr: 'none' },
-                { label: 'cholesterol', daily: 19, otherAtr: 'none' },
-              ].map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
+              nutrition={this.props.recipe.digest
+                .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
             />
           </View>
           {/* This section renders ingredients */}
