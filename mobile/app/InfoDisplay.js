@@ -1,16 +1,14 @@
+import React from 'react';
 import {
   ScrollView,
   View,
   Dimensions,
   StyleSheet,
 } from 'react-native';
-
-import React          from 'react';
-import Column         from './Column';
-import HeadBuffer     from './HeadBuffer';
-import ButtonHeader   from './ButtonHeader';
-import NutritionStats  from './NutritionStats';
-
+import Column from './Column';
+import HeadBuffer from './HeadBuffer';
+import ButtonHeader from './ButtonHeader';
+import NutritionStats from './NutritionStats';
 
 const width = Dimensions.get('window').width;
 
