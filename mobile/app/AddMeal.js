@@ -7,6 +7,7 @@ import InfoDisplay from './InfoDisplay';
 import Instructions from './Instructions';
 import HeadBuffer from './HeadBuffer';
 
+const userUrl = 'https://meal-labs.herokuapp.com/api/user/';
 const recipeUrl = 'https://meal-labs.herokuapp.com/api/recipe/';
 const mealUrl = 'https://meal-labs.herokuapp.com/api/meal/';
 
@@ -30,6 +31,17 @@ export default class AddMeal extends React.Component {
     this.gotoInstructions = this.gotoInstructions.bind(this);
   }
 
+  updateMeals() {
+    fetch(userUrl + this.props.getUserId(), {
+      method: 'GET',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(res => res.json())
+    .then((data) => {
+      this.props.updateMealList(data.mealsObjs);
+    });
+  }
+
   getData(searchString) {
     fetch(recipeUrl + searchString, {
       method: 'GET',
@@ -40,10 +52,12 @@ export default class AddMeal extends React.Component {
       if (data) {
         this.props.updateSearchRecipes(data);
       }
-    }).done();
+    })
   }
 
   addMeal(recipeId) {
+    var context = this;
+
     fetch(mealUrl, {
       method: 'POST',
       headers: {
@@ -54,7 +68,12 @@ export default class AddMeal extends React.Component {
         userId: this.props.getUserId(),
         recipeId,
       }),
+<<<<<<< e17f8d63d122ed46fa703b6dabd3c410d429d74c
     });
+=======
+    })
+    .then(() => context.updateMeals())
+>>>>>>> turned shopping list into todo style checklist
   }
 
   gotoNext(recipe) {
