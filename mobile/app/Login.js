@@ -16,6 +16,7 @@ import {
 
 const { orange, gray } = styleVariables;
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 t.form.Form.stylesheet.textbox.normal = {
   color: 'white',
@@ -41,28 +42,24 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    alignSelf: 'center',
-    marginTop: 30,
-    width: width * 0.9,
+    height: height * .7,
+    width: width * .9,
     borderRadius: 5,
     flexDirection: 'column',
     padding: 20,
+    marginTop: height * .15,
+    borderRadius: 10,
+    overflow: 'hidden'
   },
   title: {
     fontSize: 50,
-    marginTop: 30,
+    marginBottom: 60,
     backgroundColor: 'transparent',
     alignSelf: 'center',
-    marginBottom: 30,
     color: 'white',
     opacity: 1,
     textAlign: 'center',
-    textShadowColor: 'rgba(0,0,0,.2)',
-    textShadowRadius: 2,
-    textShadowOffset: {
-      width: 2,
-      height: 2,
-    },
+    fontWeight: '100',
   },
   buttonText: {
     fontSize: 18,
@@ -162,37 +159,39 @@ export default class Login extends React.Component {
           source={{ uri: 'https://s21.postimg.org/azydn73pz/resized_background.jpg' }}
           style={styles.backgroundImage}
         >
-          <View style={styles.row}>
-            <Text style={styles.title}>Meal Labs</Text>
+          <View style={{justifyContent:'center', alignItems: 'center'}}>
+            <Components.BlurView 
+              tintEffect='default'
+              style={styles.container}
+            > 
+              <View style={styles.row}>
+                <Text style={styles.title}>Meal Labs</Text>
+              </View>
+              <View style={styles.row}>
+                <Form
+                  ref="form"
+                  type={Person}
+                  options={options}
+                />
+              </View>
+              <View style={styles.row}>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={() => this.authUser(loginUrl)}
+                  underlayColor={gray}
+                >
+                  <Text style={styles.buttonText}>Login</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={() => this.authUser(signupUrl)}
+                  underlayColor={gray}
+                >
+                  <Text style={styles.buttonText}>Signup</Text>
+                </TouchableHighlight>
+              </View>
+            </Components.BlurView>
           </View>
-          <Components.BlurView 
-            tintEffect='default'
-            style={styles.container}
-          >
-            <View style={styles.row}>
-              <Form
-                ref="form"
-                type={Person}
-                options={options}
-              />
-            </View>
-            <View style={styles.row}>
-              <TouchableHighlight
-                style={styles.button}
-                onPress={() => this.authUser(loginUrl)}
-                underlayColor={gray}
-              >
-                <Text style={styles.buttonText}>Login</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={styles.button}
-                onPress={() => this.authUser(signupUrl)}
-                underlayColor={gray}
-              >
-                <Text style={styles.buttonText}>Signup</Text>
-              </TouchableHighlight>
-            </View>
-          </Components.BlurView>
         </Image>
       </View>
     );
