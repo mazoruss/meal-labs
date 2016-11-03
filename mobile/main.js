@@ -1,7 +1,6 @@
 import Exponent, { Font } from 'exponent';
 import React from 'react';
 import { Navigator } from 'react-native';
-import _ from 'lodash'
 import NavBar from './app/NavBar';
 import Login from './app/Login';
 import compileList from './lib/compileList';
