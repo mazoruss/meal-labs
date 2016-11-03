@@ -4,6 +4,7 @@ import ButtonHeader   from './ButtonHeader';
 import {
   WebView,
   View,
+  Text,
   StyleSheet,
 } from 'react-native';
 
@@ -25,6 +26,9 @@ export default class Instructions extends React.Component {
       <View style={styles.container}>
         <HeadBuffer />
         <ButtonHeader navigator={this.props.navigator}/>
+        <Text>
+          {this.props.url}
+        </Text>
         <WebView
           style={{flex: 1}}
           source={{uri: this.props.url}}

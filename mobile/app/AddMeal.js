@@ -4,6 +4,7 @@ import MealTile from './MealTile';
 import Searchbar from './Searchbar';
 import LogoDisplay from './LogoDisplay';
 import InfoDisplay from './InfoDisplay';
+import Instructions from './Instructions';
 import HeadBuffer from './HeadBuffer';
 
 const recipeUrl = 'https://meal-labs.herokuapp.com/api/recipe/';
@@ -26,6 +27,7 @@ export default class AddMeal extends React.Component {
     this.getData = this.getData.bind(this);
     this.addMeal = this.addMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
+    this.gotoInstructions = this.gotoInstructions.bind(this);
   }
 
   getData(searchString) {
@@ -66,6 +68,15 @@ export default class AddMeal extends React.Component {
     });
   }
 
+  gotoInstructions(url) {
+    this.props.navigator.push({
+      component: Instructions,
+      passProps: {
+        url,
+      },
+    });
+  }
+
   render() {
     const postMeal = this.postMeal;
     const isInList = this.props.isInList;
@@ -83,7 +94,9 @@ export default class AddMeal extends React.Component {
           {this.props.getSearchRecipes.map((meal, i) => (
             <MealTile
               recipe={meal}
+              url={meal.url}
               showInfo={this.gotoNext}
+              showInstructions={this.gotoInstructions}
               key={i}
               addMeal={this.addMeal}
               location='AddMeal'
