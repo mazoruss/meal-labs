@@ -1,7 +1,3 @@
-import React          from 'react';
-import t              from 'tcomb-form-native';
-import MealList       from './MealList';
-import styleVariables from '../styleVariables';
 import { Components } from 'exponent';
 import {
   AsyncStorage,
@@ -13,6 +9,11 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
+
+import React from 'react';
+import t from 'tcomb-form-native';
+import MealList from './MealList';
+import styleVariables from '../styleVariables';
 
 const { orange, gray } = styleVariables;
 const width = Dimensions.get('window').width;
@@ -27,14 +28,14 @@ t.form.Form.stylesheet.textbox.normal = {
   borderWidth: 1,
   borderRadius: 2,
   marginBottom: 5,
-  fontWeight: 'bold'
-}
+  fontWeight: 'bold',
+};
 
 t.form.Form.stylesheet.controlLabel.normal = {
   color: 'white',
   fontSize: 17,
-  marginBottom: 7
-}
+  marginBottom: 7,
+};
 
 const styles = StyleSheet.create({
   main: {
@@ -42,14 +43,13 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: 'center',
-    height: height * .7,
-    width: width * .9,
-    borderRadius: 5,
+    height: height * 0.7,
+    width: width * 0.9,
     flexDirection: 'column',
     padding: 20,
-    marginTop: height * .15,
+    marginTop: height * 0.15,
     borderRadius: 10,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   title: {
     fontSize: 50,
@@ -89,12 +89,12 @@ const Person = t.struct({
 const options = {
   fields: {
     username: {
-      autoCapitalize: 'none'
+      autoCapitalize: 'none',
     },
     password: {
-      secureTextEntry: true
-    }
-  }
+      secureTextEntry: true,
+    },
+  },
 };
 
 
@@ -159,11 +159,11 @@ export default class Login extends React.Component {
           source={{ uri: 'https://s21.postimg.org/azydn73pz/resized_background.jpg' }}
           style={styles.backgroundImage}
         >
-          <View style={{justifyContent:'center', alignItems: 'center'}}>
-            <Components.BlurView 
-              tintEffect='default'
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Components.BlurView
+              tintEffect="default"
               style={styles.container}
-            > 
+            >
               <View style={styles.row}>
                 <Text style={styles.title}>Meal Labs</Text>
               </View>

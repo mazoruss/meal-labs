@@ -93,8 +93,6 @@ export default class MealList extends React.Component {
   }
 
   render() {
-    const postMeal = this.postMeal;
-
     return (
       <View style={styles.container}>
         <HeadBuffer />
@@ -111,10 +109,10 @@ export default class MealList extends React.Component {
               url={meal.recipe.url}
               showInfo={this.gotoNext}
               showInstructions={this.gotoInstructions}
-              mealId={meal._id} 
+              mealId={meal._id}
               addMeal={this.addMeal}
               removeMeal={this.removeMeal}
-              location='MealList'
+              location="MealList"
             />
           ))}
         </ScrollView>

@@ -72,22 +72,22 @@ const Tile = ({
         { location === 'MealList' &&
           <Button
             onclick={() => { removeMeal(recipe._id, mealId); }}
-            icon='ios-remove'
+            icon="ios-remove"
           />
         }
-        { location === 'AddMeal' && 
+        { location === 'AddMeal' &&
           <Button
             onclick={() => { addMeal(recipe._id); }}
-            icon='ios-add'
+            icon="ios-add"
           />
         }
         <Button
           onclick={() => showInfo(recipe, mealId)}
-          icon='ios-analytics-outline'
+          icon="ios-analytics-outline"
         />
         <Button
           onclick={() => showInstructions(url)}
-          icon='ios-link-outline'
+          icon="ios-link-outline"
         />
       </View>
     </Image>
