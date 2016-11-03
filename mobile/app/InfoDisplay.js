@@ -9,7 +9,7 @@ import React          from 'react';
 import Column         from './Column';
 import HeadBuffer     from './HeadBuffer';
 import ButtonHeader   from './ButtonHeader';
-import AnimationTest  from './AnimationTest';
+import NutritionStats  from './NutritionStats';
 
 
 const width = Dimensions.get('window').width;
@@ -80,7 +80,7 @@ class InfoDisplay extends React.Component {
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
-            <AnimationTest
+            <NutritionStats
               nutrition={this.props.recipe.digest
                 .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
             />
