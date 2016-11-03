@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   contentContainer: {
-    backgroundColor: 'white',
     alignItems: 'center'
   },
 });
@@ -40,7 +40,6 @@ export default class AddMeal extends React.Component {
       }
     }).done();
   }
-
 
   addMeal(recipeId) {
     fetch(mealUrl, {
@@ -79,7 +78,7 @@ export default class AddMeal extends React.Component {
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          <Searchbar enter={this.getData} />
+          <Searchbar enter={this.getData} /> 
           
           {this.props.getSearchRecipes.map((meal, i) => (
             <MealTile

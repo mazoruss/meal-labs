@@ -1,4 +1,4 @@
-import Exponent from 'exponent';
+import Exponent, { Font } from 'exponent';
 import React from 'react';
 import { Navigator } from 'react-native';
 
@@ -24,6 +24,10 @@ class App extends React.Component {
     this.updateSearchRecipes = this.updateSearchRecipes.bind(this);
     this.renderScene         = this.renderScene.bind(this);
     this.removeMealFromList  = this.removeMealFromList.bind(this);
+  }
+
+  componentDidMount() {
+
   }
 
   getToken() { return this.state.token; }
