@@ -9,6 +9,11 @@ import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
+import Wedge from './Wedge';
+import { ART } from 'react-native';
+
+const { Surface } = ART;
+
 
 const width = Dimensions.get('window').width;
 
@@ -76,8 +81,16 @@ class InfoDisplay extends React.Component {
         <HeadBuffer />
         <ButtonHeader navigator={this.props.navigator} />
         <ScrollView contentContainerStyle={styles.scroller}>
-          {/* This section renders animated nutrition info(is a mock atm) */}
+          {/* This section renders animated nutrition info */}
           <View>
+            <Surface width={width} height={width}>
+              <Wedge
+                outerRadius={(0.9 * width) / 2}
+                startAngle={30}
+                endAngle={180}
+                fill="#59838B"
+              />
+            </Surface>
             <NutritionStats
               nutrition={this.props.recipe.digest
                 .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
