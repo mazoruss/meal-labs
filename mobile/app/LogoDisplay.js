@@ -22,12 +22,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 2,
     color: 'white',
+    fontWeight: '100'
   },
 });
 
 const LogoDisplay = () => (
   <View style={styles.logo}>
-    <Text style={styles.headline}>Meal Labs</Text>
+    <Text style={styles.headline}>MEAL. LABS</Text>
   </View>
 );
 
