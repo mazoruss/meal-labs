@@ -106,9 +106,9 @@ class InfoDisplay extends React.Component {
           <View>
             <AnimationTest
               nutrition={[
-                { label: 'fat', daily: 178, otherAtr: 'none' },
-                { label: 'protein', daily: 55, otherAtr: 'none' },
-                { label: 'cholesterol', daily: 229, otherAtr: 'none' },
+                { label: 'fat', daily: 68, otherAtr: 'none' },
+                { label: 'protein', daily: 75, otherAtr: 'none' },
+                { label: 'cholesterol', daily: 19, otherAtr: 'none' },
               ].map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
             />
           </View>

@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Animated,
+  Dimensions,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -38,6 +39,13 @@ const styles = StyleSheet.create({
 });
 
 export default class AnimationTest extends React.Component {
+  static getWidth(data) {
+    const deviceWidth = Dimensions.get('window').width;
+    const maxWidth = deviceWidth - 50;
+    const width = data < 100 ? (data / 100) * maxWidth : maxWidth;
+    return width;
+  }
+
   constructor(props) {
     super(props);
     this.nutrients = {};
@@ -53,9 +61,13 @@ export default class AnimationTest extends React.Component {
     setTimeout(animate, 300);
   }
 
+
   handleAnimation() {
     Animated.parallel(this.props.nutrition.map(nutrient =>
-      Animated.timing(this.nutrients[nutrient.label], { toValue: nutrient.daily })
+      Animated.timing(
+        this.nutrients[nutrient.label],
+        { toValue: AnimationTest.getWidth(nutrient.daily) }
+      )
     )).start();
   }
 
