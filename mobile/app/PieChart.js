@@ -8,7 +8,6 @@ import { ART, View } from 'react-native';
 import Wedge from './Wedge';
 
 const { Group, Surface } = ART;
-// import * as C from './constants';
 
 const getColor = (colors, index) => colors[index] || colors[colors.length % index];
 
@@ -74,7 +73,6 @@ export default class PieChart extends React.Component {
             originY={centerY}
             rotation={this.state.rotation}
           >
-
             {arcs.map((arc, i) => (
               <Wedge
                 stroke={colors[i]}
@@ -87,14 +85,6 @@ export default class PieChart extends React.Component {
               />
             ))}
           </Group>
-          {/*
-          <Wedge
-            outerRadius={(0.9 * 300) / 2}
-            startAngle={30}
-            endAngle={180}
-            fill="#59838B"
-          />
-        */}
         </Surface>
       </View>
     );

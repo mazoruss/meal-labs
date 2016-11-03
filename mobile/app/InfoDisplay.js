@@ -4,17 +4,12 @@ import {
   View,
   Dimensions,
   StyleSheet,
-  ART,
 } from 'react-native';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
-import PieChart from './PieChart';
-import Wedge from './Wedge';
-
-const { Surface } = ART;
-
+import MacrosChart from './MacrosChart';
 
 const width = Dimensions.get('window').width;
 
@@ -84,11 +79,7 @@ class InfoDisplay extends React.Component {
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info */}
           <View>
-              <PieChart
-                height={0.9 * width}
-                width={0.9 * width}
-                data={[33, 54, 12]}
-              />
+            <MacrosChart nutrition={this.props.recipe.digest} />
             <NutritionStats
               nutrition={this.props.recipe.digest
                 .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
