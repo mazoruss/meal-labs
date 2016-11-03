@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import MealTile from './MealTile';
 import InfoDisplay from './InfoDisplay';
+import Instructions from './Instructions';
 import LogoDisplay from './LogoDisplay';
 import HeadBuffer from './HeadBuffer';
 
-const userUrl = 'https://mealdotnext4.herokuapp.com/api/user/';
-const mealUrl = 'https://mealdotnext4.herokuapp.com/api/meal/';
+const userUrl = 'https://meal-labs.herokuapp.com/api/user/';
+const mealUrl = 'https://meal-labs.herokuapp.com/api/meal/';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +28,7 @@ export default class MealList extends React.Component {
     this.addMeal = this.addMeal.bind(this);
     this.removeMeal = this.removeMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
+    this.gotoInstructions = this.gotoInstructions.bind(this);
   }
 
   componentWillMount() {
@@ -81,6 +83,14 @@ export default class MealList extends React.Component {
     });
   }
 
+  gotoInstructions(url) {
+    this.props.navigator.push({
+      component: Instructions,
+      passProps: {
+        url,
+      },
+    });
+  }
 
   render() {
     const postMeal = this.postMeal;
@@ -98,7 +108,9 @@ export default class MealList extends React.Component {
             <MealTile
               key={i}
               recipe={meal.recipe}
+              url={meal.recipe.url}
               showInfo={this.gotoNext}
+              showInstructions={this.gotoInstructions}
               mealId={meal._id} 
               addMeal={this.addMeal}
               removeMeal={this.removeMeal}

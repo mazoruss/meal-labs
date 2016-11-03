@@ -49,8 +49,10 @@ const styles = StyleSheet.create({
 
 const Tile = ({ 
   recipe,
-  mealId, 
+  mealId,
+  url,
   showInfo,
+  showInstructions,
   addMeal,
   removeMeal,
   location
@@ -85,6 +87,10 @@ const Tile = ({
         <Button
           onclick={() => showInfo(recipe, mealId)}
           icon='ios-analytics-outline'
+        />
+        <Button
+          onclick={() => showInstructions(url)}
+          icon='ios-link-outline'
         />
       </View>
     </Image>
