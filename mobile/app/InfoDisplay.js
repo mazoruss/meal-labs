@@ -1,21 +1,17 @@
-import React          from 'react';
-import HeaderDisplay  from './HeaderDisplay';
-import Column         from './Column';
-import HeadBuffer     from './HeadBuffer';
-import ButtonHeader   from './ButtonHeader';
-import styleVariables from '../styleVariables';
-import AnimationTest  from './AnimationTest';
-
 import {
   ScrollView,
-  Text,
   View,
   Dimensions,
   StyleSheet,
-  TouchableOpacity
 } from 'react-native';
 
-const { orange } = styleVariables;
+import React          from 'react';
+import Column         from './Column';
+import HeadBuffer     from './HeadBuffer';
+import ButtonHeader   from './ButtonHeader';
+import AnimationTest  from './AnimationTest';
+
+
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
@@ -76,31 +72,11 @@ class InfoDisplay extends React.Component {
       test: 'test',
     };
   }
-
   render() {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <ButtonHeader navigator={this.props.navigator}/>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => { this.props.navigator.pop(); }}
-            hitSlop={{
-              top: 10,
-              bottom: 10,
-              left: 20,
-              right: 20,
-            }}
-          >
-           {/* <Ionicons
-              style={{ backgroundColor: 'transparent' }}
-              name={'ios-arrow-back'}
-              size={40}
-              color="white"
-            />*/}
-          </TouchableOpacity>
-        </View>
+        <ButtonHeader navigator={this.props.navigator} />
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info(is a mock atm) */}
           <View>
