@@ -20,31 +20,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     position: 'relative',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   headline: {
     flex: 1,
     maxWidth: 300,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   backButton: {
     position: 'absolute',
-    left: 10
+    left: 10,
   },
   headlineText: {
-    fontSize: 20, 
-    color: 'white', 
+    fontSize: 20,
+    color: 'white',
     fontWeight: '100',
-    marginBottom: 4
-  }
+    marginBottom: 4,
+  },
 });
 
 const ButtonHeader = function button({ navigator, name }) {
-  const sliceName = name.length > 30 ? `${name.slice(0, 30)}...` : name;
-  
+  const sliceName = name.length > 30 ? `${name.slice(0, 27)}...` : name;
+
   return (
     <View style={styles.header}>
+      <View style={styles.headline}>
+        <Text style={styles.headlineText}>
+          { sliceName }
+        </Text>
+      </View>
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => { navigator.pop(); }}
@@ -62,11 +67,6 @@ const ButtonHeader = function button({ navigator, name }) {
           color="white"
         />
       </TouchableOpacity>
-      <View style={styles.headline}>
-        <Text style={styles.headlineText}>
-          { sliceName }
-        </Text>
-      </View>
     </View>
   );
 };

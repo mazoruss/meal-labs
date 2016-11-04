@@ -81,7 +81,7 @@ export default class MacrosChart extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Calorie Breakdown (%)</Text>
+        <Text style={styles.title}>Caloric Breakdown (%)</Text>
         <View style={styles.charts}>
           <View style={styles.macros}>
             <PieChart
@@ -123,8 +123,8 @@ export default class MacrosChart extends React.Component {
           </View>
         </View>
         <Text style={styles.nutritionists}>
-          {`Nutritionists recommend that 20-35% of your daily caloric intake
- come from fats, 40-65% from carbs, and 10-35% from protein`}
+          {`Nutritionists recommend that 20-35% of your daily caloric intake come
+ from fats, 40-65% come from carbs, and 10-35% come from protein`}
         </Text>
       </View>
     );

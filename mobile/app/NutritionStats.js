@@ -21,20 +21,23 @@ const styles = StyleSheet.create({
   label: {
     color: '#3D3D3D',
     flex: 1,
-    fontSize: 12,
+    fontSize: 10,
     position: 'relative',
     top: 2,
     height: 10,
+    marginBottom: 5,
+    marginLeft: 3,
+    fontWeight: '100',
   },
   data: {
     flex: 2,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   dataNumber: {
-    color: '#3D3D3D',
-    fontSize: 12,
-    marginBottom: 5,
-    height: 14,
+    color: 'rgba(0,0,0,0.5)',
+    fontSize: 8,
+    paddingTop: 1,
   },
   // Bar
   bar: {
@@ -49,31 +52,39 @@ const styles = StyleSheet.create({
 export default class AnimationTest extends React.Component {
   static getWidth(data) {
     const deviceWidth = Dimensions.get('window').width;
-    const maxWidth = deviceWidth * 0.85;
+    const maxWidth = deviceWidth * 0.83;
     const width = data < 100 ? (data / 100) * maxWidth : maxWidth;
     return width;
   }
 
   constructor(props) {
     super(props);
-    this.nutrients = {};
+    if (props.yield.length < 1 || props.yield === 'undefined') {
+      console.log('No portion size data available!');
+    }
+    const portionSize = props.yield || 1;
+    this.portionAdjustedNutrients = props.nutrition
+      .map(nutrient => [nutrient.label, nutrient.daily / portionSize]);
+    console.log(this.portionAdjustedNutrients);
+
     // Initialize nutrient values at 1 so that can animate up
-    props.nutrition.forEach((nutrient) => {
-      this.nutrients[nutrient.label] = new Animated.Value(1);
+    this.nutrients = {};
+    this.portionAdjustedNutrients.forEach((nutrient) => {
+      this.nutrients[nutrient[0]] = new Animated.Value(1);
     });
     this.handleAnimation = this.handleAnimation.bind(this);
   }
 
   componentDidMount() {
     const animate = this.handleAnimation;
-    setTimeout(animate, 300);
+    setTimeout(animate, 100);
   }
 
   handleAnimation() {
-    Animated.parallel(this.props.nutrition.map(nutrient =>
+    Animated.parallel(this.portionAdjustedNutrients.map(nutrient =>
       Animated.timing(
-        this.nutrients[nutrient.label],
-        { toValue: AnimationTest.getWidth(nutrient.daily) }
+        this.nutrients[nutrient[0]],
+        { toValue: AnimationTest.getWidth(nutrient[1]) }
       )
     )).start();
   }
@@ -81,12 +92,12 @@ export default class AnimationTest extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.nutrition.map(nutrient => (
-          <View key={nutrient.label} style={styles.item}>
-            <Text style={styles.label}>{nutrient.label}</Text>
+        { this.portionAdjustedNutrients.map(nutrient => (
+          <View key={nutrient[0]} style={styles.item}>
+            <Text style={styles.label}>{nutrient[0]}</Text>
             <View style={styles.data}>
-              <Animated.View style={[styles.bar, { width: this.nutrients[nutrient.label] }]} />
-              <Text style={styles.dataNumber}>{Math.round(nutrient.daily)}</Text>
+              <Animated.View style={[styles.bar, { width: this.nutrients[nutrient[0]] }]} />
+              <Text style={styles.dataNumber}>{`${Math.round(nutrient[1])}% D.V.`}</Text>
             </View>
           </View>
         ))}
