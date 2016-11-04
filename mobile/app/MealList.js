@@ -1,13 +1,23 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import MealTile from './MealTile';
-import InfoDisplay from './InfoDisplay';
+import React        from 'react';
+import MealTile     from './MealTile';
+import InfoDisplay  from './InfoDisplay';
 import Instructions from './Instructions';
-import LogoDisplay from './LogoDisplay';
-import HeadBuffer from './HeadBuffer';
+import LogoDisplay  from './LogoDisplay';
+import HeadBuffer   from './HeadBuffer';
+import { 
+  StyleSheet, 
+  View, 
+  ScrollView,
+  Text,
+  ActivityIndicator,
+  Dimensions 
+} from 'react-native';
 
 const userUrl = 'https://meal-labs.herokuapp.com/api/user/';
 const mealUrl = 'https://meal-labs.herokuapp.com/api/meal/';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +29,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
+  loadScreen: {
+    flex: 1, 
+    height: height - 120, 
+    width: width, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  }
 });
 
 export default class MealList extends React.Component {
@@ -29,13 +46,19 @@ export default class MealList extends React.Component {
     this.removeMeal = this.removeMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoInstructions = this.gotoInstructions.bind(this);
+
+    this.state = {
+      loading: false
+    }
   }
 
   componentWillMount() {
-    this.getData();
+    this.getData(() => this.setState({loading: false}));
   }
 
   getData(cb) {
+    this.setState({loading: true})
+
     fetch(userUrl + this.props.getUserId(), {
       method: 'GET',
       headers: { 'x-access-token': this.props.getToken() },
@@ -83,11 +106,12 @@ export default class MealList extends React.Component {
     });
   }
 
-  gotoInstructions(uri) {
+  gotoInstructions(uri, title) {
     this.props.navigator.push({
       component: Instructions,
       passProps: {
         uri,
+        title
       },
     });
   }
@@ -102,19 +126,25 @@ export default class MealList extends React.Component {
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          {this.props.mealList.map((meal, i) => (
-            <MealTile
-              key={i}
-              recipe={meal.recipe}
-              url={meal.recipe.url}
-              showInfo={this.gotoNext}
-              showInstructions={this.gotoInstructions}
-              mealId={meal._id}
-              addMeal={this.addMeal}
-              removeMeal={this.removeMeal}
-              location="MealList"
-            />
+          {!this.state.loading && 
+            this.props.mealList.map((meal, i) => (
+              <MealTile
+                key={i}
+                recipe={meal.recipe}
+                url={meal.recipe.url}
+                showInfo={this.gotoNext}
+                showInstructions={this.gotoInstructions}
+                mealId={meal._id}
+                addMeal={this.addMeal}
+                removeMeal={this.removeMeal}
+                location="MealList"
+              />
           ))}
+          {this.state.loading &&
+            <View style={styles.loadScreen}>
+              <ActivityIndicator />
+            </View>
+          }
         </ScrollView>
       </View>
     );
