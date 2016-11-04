@@ -82,7 +82,7 @@ class InfoDisplay extends React.Component {
     this.state = {
       selectedIndex: 0,
     };
-    console.log('props label', this.props.recipe.label);
+    console.log('recipe yield--', this.props.recipe.yield);
   }
   render() {
     return (
@@ -117,6 +117,7 @@ class InfoDisplay extends React.Component {
           {this.state.selectedIndex === 1 &&
             <ScrollView contentContainerStyle={styles.scroller}>
               <NutritionStats
+                yield={this.props.recipe.yield}
                 nutrition={this.props.recipe.digest
                   .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
               />
