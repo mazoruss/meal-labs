@@ -79,7 +79,11 @@ class InfoDisplay extends React.Component {
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info */}
           <View>
-            <MacrosChart nutrition={this.props.recipe.digest} />
+            <MacrosChart
+              nutrition={this.props.recipe.digest}
+              height={width * 0.9}
+              width={width * 0.9}
+            />
             <NutritionStats
               nutrition={this.props.recipe.digest
                 .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}

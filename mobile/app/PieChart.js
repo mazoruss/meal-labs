@@ -8,13 +8,7 @@ import { ART, View, StyleSheet } from 'react-native';
 import Wedge from './Wedge';
 
 const { Group, Surface } = ART;
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    marginTop: 5,
-  },
-});
+
 
 const getColor = (colors, index) => colors[index] || colors[colors.length % index];
 
@@ -25,20 +19,6 @@ export default class PieChart extends React.Component {
   }
 
   render() {
-    // if (!this.props.width || !this.props.height) return <View />;
-
-    // default colors
-    const COLORS = this.props.sliceColors || [
-      '#4DC4E6',
-      '#333333',
-      '#999999',
-      '#DF8165',
-      '#F5F5F5',
-      '#90C456',
-      '#374E5C',
-      '#4a697c',
-    ];
-    // TODO: Read stroke width from props?
     const STROKE_WIDTH = 1;
     const radius = (this.props.height / 2) - STROKE_WIDTH;
 
@@ -67,11 +47,11 @@ export default class PieChart extends React.Component {
         endAngle = 360;
       }
       arcs.push({ startAngle, endAngle, outerRadius: radius });
-      colors.push(getColor(COLORS, i));
+      colors.push(getColor(this.props.colors, i));
       startAngle += sectionPiece;
     });
     return (
-      <View style={styles.container}>
+      <View>
         <Surface width={this.props.width} height={this.props.height}>
           <Group
             originX={centerX}
