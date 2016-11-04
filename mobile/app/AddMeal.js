@@ -31,6 +31,19 @@ export default class AddMeal extends React.Component {
     this.gotoInstructions = this.gotoInstructions.bind(this);
   }
 
+  getData(searchString) {
+    fetch(recipeUrl + searchString, {
+      method: 'GET',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(res => res.json())
+    .then((data) => {
+      if (data) {
+        this.props.updateSearchRecipes(data);
+      }
+    });
+  }
+
   updateMeals() {
     fetch(userUrl + this.props.getUserId(), {
       method: 'GET',
@@ -42,21 +55,8 @@ export default class AddMeal extends React.Component {
     });
   }
 
-  getData(searchString) {
-    fetch(recipeUrl + searchString, {
-      method: 'GET',
-      headers: { 'x-access-token': this.props.getToken() },
-    })
-    .then(res => res.json())
-    .then((data) => {
-      if (data) {
-        this.props.updateSearchRecipes(data);
-      }
-    })
-  }
-
   addMeal(recipeId) {
-    var context = this;
+    const context = this;
 
     fetch(mealUrl, {
       method: 'POST',
