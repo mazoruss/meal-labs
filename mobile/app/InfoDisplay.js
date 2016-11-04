@@ -9,6 +9,7 @@ import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
+import MacrosChart from './MacrosChart';
 
 const width = Dimensions.get('window').width;
 
@@ -76,8 +77,14 @@ class InfoDisplay extends React.Component {
         <HeadBuffer />
         <ButtonHeader navigator={this.props.navigator} />
         <ScrollView contentContainerStyle={styles.scroller}>
-          {/* This section renders animated nutrition info(is a mock atm) */}
+          {/* This section renders animated nutrition info */}
           <View>
+            <MacrosChart
+              name={this.props.recipe.label}
+              nutrition={this.props.recipe.digest}
+              height={width * 0.9}
+              width={width * 0.9}
+            />
             <NutritionStats
               nutrition={this.props.recipe.digest
                 .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
