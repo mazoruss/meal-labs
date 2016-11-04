@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 50,
-    marginBottom: 60,
+    marginBottom: 50,
     backgroundColor: 'transparent',
     alignSelf: 'center',
     color: 'white',
@@ -165,7 +165,7 @@ export default class Login extends React.Component {
               style={styles.container}
             >
               <View style={styles.row}>
-                <Text style={styles.title}>Meal Labs</Text>
+                <Text style={styles.title}>MEAL. LABS</Text>
               </View>
               <View style={styles.row}>
                 <Form

@@ -1,62 +1,22 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
-import LogoDisplay from './LogoDisplay';
-import Column from './Column';
-import HeadBuffer from './HeadBuffer';
+import React          from 'react';
+import LogoDisplay    from './LogoDisplay';
+import HeadBuffer     from './HeadBuffer';
+import compileList    from '../lib/compileList';
+import CheckBox       from './CheckBox';
+import { 
+  StyleSheet, 
+  View, 
+  ScrollView, 
+  Dimensions, 
+  Text,
+  TouchableOpacity 
+} from 'react-native';
 
 const width = Dimensions.get('window').width;
-
-const compileList = (meals) => {
-  const result = {};
-  const list = [];
-  const recipes = meals.map(meal => meal.recipe);
-
-  recipes.forEach((recipe) => {
-    recipe.ingredients.forEach((ingredient) => {
-      if (ingredient.food in result) {
-        result[ingredient.food].quantity += ingredient.quantity;
-      } else {
-        result[ingredient.food] = {
-          quantity: ingredient.quantity,
-          measure: ingredient.measure,
-        };
-      }
-    });
-  });
-
-  Object.entries(result).forEach(([ingredient, amount]) => {
-    list.push([ingredient, amount.quantity, amount.measure]);
-  });
-  return list;
-};
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  table: {
-    width: width * 0.9,
-    marginBottom: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderWidth: 2,
-    borderColor: 'black',
-    borderRadius: 5,
-    padding: 5,
-    marginTop: 10,
-  },
-  contentContainer: {
-    alignItems: 'center',
-  },
-});
 
 export default class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
-    this.shoppingList = compileList(this.props.mealList);
   }
 
   render() {
@@ -64,33 +24,67 @@ export default class ShoppingList extends React.Component {
       <View style={styles.container}>
         <HeadBuffer />
         <LogoDisplay />
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-          showsVerticalScrollIndicator={false}
-          alwaysBounceVertical
-        >
-          <View style={styles.table}>
-            <Column
-              data={this.shoppingList}
-              name="Ingredient"
-              index={0}
-            />
-            <Column
-              data={this.shoppingList}
-              name="Qty"
-              index={1}
-              alignRight
-            />
-            <Column
-              data={this.shoppingList}
-              name="Unit"
-              index={2}
-              alignRight
-            />
-          </View>
+        <ScrollView>
+          {this.props.shoppingList.map((item, i) => (
+            <View 
+              key={i}
+              style={[styles.row, 
+                {backgroundColor: i % 2 === 0 
+                  ? 'rgba(0,0,0,.03)'
+                  : 'transparent'}
+            ]}>
+              <View style={[styles.column, {flex: 4}]}>
+                <Text style={{fontWeight: '100'}}>
+                  {item.ingredient}
+                </Text>
+              </View>
+              <View style={[styles.column, {flex: 2}]}>
+                <Text style={{fontWeight: '100'}}>
+                  {item.quantity}
+                </Text>
+              </View>
+              <View style={[styles.checkBox]}>
+                <CheckBox
+                  isChecked={item.checked}
+                  press={() => this.props.setChecked(i)}
+                />
+              </View>
+            </View>
+          ))}
         </ScrollView>
       </View>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'white'
+  },
+  row: {
+    width: width,
+    height: 60,
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    flex: 1, 
+    justifyContent: 'space-between',
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  column: {
+    justifyContent: 'flex-start', 
+    alignItems: 'center', 
+    flexDirection: 'row'
+  },
+  checkBox: {
+    flex: 1, 
+    justifyContent: 'flex-end', 
+    alignItems: 'center', 
+    flexDirection: 'row'
+  },
+  contentContainer: {
+    alignItems: 'center',
+  }
+});
