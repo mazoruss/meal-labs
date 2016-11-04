@@ -11,6 +11,7 @@ import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
 import MacrosChart from './MacrosChart';
+import Ingredients from './Ingredients';
 
 const width = Dimensions.get('window').width;
 
@@ -98,7 +99,7 @@ class InfoDisplay extends React.Component {
           <SegmentedControlIOS
             style={{ flex: 1 }}
             tintColor="#59838B"
-            values={['Calories', 'Nutrients']}
+            values={['Calories', 'Nutrients', 'Ingredients']}
             selectedIndex={this.state.selectedIndex}
             onChange={(event) => {
               this.setState({
@@ -107,6 +108,9 @@ class InfoDisplay extends React.Component {
             }}
           />
         </View>
+        {this.state.selectedIndex === 2 &&
+          <Ingredients />
+        }
         {/* This section renders animated nutrition info */}
         <View style={styles.visualizations}>
           {this.state.selectedIndex === 0 &&
