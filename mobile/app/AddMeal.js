@@ -70,7 +70,7 @@ export default class AddMeal extends React.Component {
       }),
 
     })
-    .then(() => context.updateMeals())
+    .then(() => context.updateMeals());
   }
 
   gotoNext(recipe) {

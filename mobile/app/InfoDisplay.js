@@ -67,15 +67,15 @@ const compileNutrition = (data) => {
 class InfoDisplay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      test: 'test',
-    };
+    console.log('props label', this.props.recipe.label);
   }
   render() {
     return (
       <View style={styles.container}>
-        <HeadBuffer />
-        <ButtonHeader navigator={this.props.navigator} />
+        <View style={styles.header}>
+          <HeadBuffer />
+          <ButtonHeader navigator={this.props.navigator} name={this.props.recipe.label} />
+        </View>
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info */}
           <View>
