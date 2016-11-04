@@ -1,12 +1,12 @@
-import React from 'react';
+import React        from 'react';
+import HeadBuffer   from './HeadBuffer';
+import ButtonHeader from './ButtonHeader';
 import {
   WebView,
   View,
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import HeadBuffer from './HeadBuffer';
-import ButtonHeader from './ButtonHeader';
 
 const width = Dimensions.get('window').width;
 
@@ -25,6 +25,7 @@ const Instructions = ({ navigator, uri }) => (
     <WebView
       style={{ width }}
       source={{ uri }}
+      startInLoadingState={true}
     />
   </View>
 );
