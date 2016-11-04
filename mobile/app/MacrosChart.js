@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     // margin: 5,
   },
   charts: {
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     color: '#3D3D3D',
     fontSize: 30,
     fontWeight: '100',
-    marginBottom: 10,
   },
   legendText: {
     color: '#3D3D3D',
@@ -30,6 +29,11 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     alignSelf: 'center',
     fontWeight: '100',
+  },
+  nutritionists: {
+    color: '#3D3D3D',
+    fontSize: 8,
+    fontStyle: 'italic',
   },
   macros: {
     alignSelf: 'flex-start',
@@ -118,6 +122,10 @@ export default class MacrosChart extends React.Component {
             </View>
           </View>
         </View>
+        <Text style={styles.nutritionists}>
+          {`Nutritionists recommend that 20-35% of your daily caloric intake
+ come from fats, 40-65% from carbs, and 10-35% from protein`}
+        </Text>
       </View>
     );
   }
