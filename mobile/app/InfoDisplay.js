@@ -6,7 +6,6 @@ import {
   StyleSheet,
   SegmentedControlIOS,
 } from 'react-native';
-import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
@@ -58,28 +57,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/* eslint-disable no-param-reassign */
-const compileNutrition = (data) => {
-  const result = [];
-  data.forEach((item) => {
-    result.push(item);
-    if (item.sub) {
-      item.sub.forEach((subItem) => {
-        subItem.label = ` ${subItem.label}`;
-        result.push(subItem);
-      });
-    }
-  });
-  result.forEach((item) => {
-    const totalUnit = Number(Number(item.total).toFixed(2)).toString() + item.unit;
-    item.totalUnit = totalUnit;
-    const dailyPercent = `${Number(Number(item.daily).toFixed(1)).toString()}%`;
-    item.dailyPercent = dailyPercent;
-  });
-  return result;
-};
-/* eslint-enable no-param-reassign */
-
 class InfoDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -92,7 +69,6 @@ class InfoDisplay extends React.Component {
     const ingredients = this.props.recipe.ingredients
       .map(ingredient => ({
         ingredient: ingredient.text,
-        quantity: `${ingredient.quantity} ${ingredient.measure}`,
       }));
 
     return (
@@ -115,7 +91,9 @@ class InfoDisplay extends React.Component {
           />
         </View>
         {this.state.selectedIndex === 2 &&
-          <Ingredients recipe={ingredients} />
+          <View style={{ flexDirection: 'column' }}>
+            <Ingredients recipe={ingredients} />
+          </View>
         }
         {/* This section renders animated nutrition info */}
         <View style={styles.visualizations}>

@@ -15,16 +15,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  contentContainer: {
     alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
 
 const Ingredients = ({ recipe }) => (
-  <ScrollView>
+  <ScrollView styles={styles.container}>
     {recipe.map((item, i) => (
       <View
         key={i}
@@ -35,7 +33,7 @@ const Ingredients = ({ recipe }) => (
         ]}
       >
         <View>
-          <Text style={{ fontWeight: '100' }} numberOfLines={2}>
+          <Text style={{ fontWeight: '100' }} >
             {item.ingredient}
           </Text>
         </View>
