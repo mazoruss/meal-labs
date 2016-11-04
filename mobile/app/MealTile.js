@@ -1,4 +1,5 @@
-import React from 'react';
+import React          from 'react';
+import Button         from './Button';
 import { Components } from 'exponent';
 import {
   View,
@@ -7,7 +8,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import Button from './Button';
+
 
 const width = Dimensions.get('window').width;
 
@@ -54,7 +55,6 @@ const Tile = ({
   removeMeal,
   location,
 }) => (
-
   <View style={styles.tile}>
     <Image
       style={styles.picture}
@@ -86,7 +86,7 @@ const Tile = ({
           icon="ios-analytics-outline"
         />
         <Button
-          onclick={() => showInstructions(url)}
+          onclick={() => showInstructions(url, recipe.label)}
           icon="ios-link-outline"
         />
       </View>

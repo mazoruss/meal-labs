@@ -19,24 +19,34 @@ const styles = StyleSheet.create({
     backgroundColor: orange,
     alignItems: 'center',
     flexDirection: 'row',
-    paddingLeft: 20,
+    position: 'relative',
+    justifyContent: 'center'
   },
   headline: {
-    fontSize: 30,
-    marginTop: 2,
-    color: 'white',
-    fontWeight: '100',
     flex: 1,
+    maxWidth: 300,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
+  backButton: {
+    position: 'absolute',
+    left: 10
+  },
+  headlineText: {
+    fontSize: 20, 
+    color: 'white', 
+    fontWeight: '100',
+    marginBottom: 4
+  }
 });
 
 const ButtonHeader = function button({ navigator, name }) {
-  const sliceName = name.length > 14 ? `${name.slice(0, 14)}...` : name;
-
+  const sliceName = name.length > 30 ? `${name.slice(0, 30)}...` : name;
+  
   return (
     <View style={styles.header}>
       <TouchableOpacity
-        style={styles.iconButton}
+        style={styles.backButton}
         onPress={() => { navigator.pop(); }}
         hitSlop={{
           top: 10,
@@ -52,11 +62,11 @@ const ButtonHeader = function button({ navigator, name }) {
           color="white"
         />
       </TouchableOpacity>
-      <Text>
-        <Text style={styles.headline}>
-          {sliceName}
+      <View style={styles.headline}>
+        <Text style={styles.headlineText}>
+          { sliceName }
         </Text>
-      </Text>
+      </View>
     </View>
   );
 };
