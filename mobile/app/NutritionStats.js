@@ -66,7 +66,7 @@ export default class AnimationTest extends React.Component {
 
   componentDidMount() {
     const animate = this.handleAnimation;
-    setTimeout(animate, 300);
+    setTimeout(animate, 100);
   }
 
   handleAnimation() {
