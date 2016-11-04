@@ -19,6 +19,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: 'white',
+    width,
+  },
+  visualizations: {
+    width: 0.95 * width,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    // alignItems: 'center',
   },
   picture: {
     width: width * 0.9,
@@ -86,7 +94,8 @@ class InfoDisplay extends React.Component {
         <View style={styles.segmentedControl}>
           <SegmentedControlIOS
             style={{ flex: 1 }}
-            values={['One', 'Two']}
+            tintColor="#59838B"
+            values={['Calories', 'Nutrients']}
             selectedIndex={this.state.selectedIndex}
             onChange={(event) => {
               this.setState({
@@ -95,61 +104,25 @@ class InfoDisplay extends React.Component {
             }}
           />
         </View>
-        <ScrollView contentContainerStyle={styles.scroller}>
-          {/* This section renders animated nutrition info */}
-          <View>
+        {/* This section renders animated nutrition info */}
+        <View style={styles.visualizations}>
+          {this.state.selectedIndex === 0 &&
             <MacrosChart
               name={this.props.recipe.label}
               nutrition={this.props.recipe.digest}
               height={width * 0.9}
               width={width * 0.9}
             />
-            <NutritionStats
-              nutrition={this.props.recipe.digest
-                .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
-            />
-          </View>
-          {/* This section renders ingredients */}
-          <View style={styles.table}>
-            <Column
-              data={this.props.recipe.ingredients}
-              name="Ingredient"
-              index="food"
-            />
-            <Column
-              data={this.props.recipe.ingredients}
-              name="Qty"
-              index="quantity"
-              alignRight
-            />
-            <Column
-              data={this.props.recipe.ingredients}
-              name="Unit"
-              index="measure"
-              alignRight
-            />
-          </View>
-          {/* This section renders nutrition info */}
-          <View style={styles.table}>
-            <Column
-              data={compileNutrition(this.props.recipe.digest)}
-              name="Nutrient"
-              index="label"
-            />
-            <Column
-              data={compileNutrition(this.props.recipe.digest)}
-              name="Qty"
-              index="totalUnit"
-              alignRight
-            />
-            <Column
-              data={compileNutrition(this.props.recipe.digest)}
-              name="Daily"
-              index="dailyPercent"
-              alignRight
-            />
-          </View>
-        </ScrollView>
+          }
+          {this.state.selectedIndex === 1 &&
+            <ScrollView contentContainerStyle={styles.scroller}>
+              <NutritionStats
+                nutrition={this.props.recipe.digest
+                  .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
+              />
+            </ScrollView>
+          }
+        </View>
       </View>
     );
   }

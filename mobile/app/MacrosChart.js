@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'space-between',
-    margin: 5,
+    justifyContent: 'center',
+    // margin: 5,
   },
   charts: {
     flexDirection: 'row',
@@ -15,8 +15,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#3D3D3D',
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: '100',
+    marginBottom: 10,
   },
   legendText: {
     color: '#3D3D3D',
