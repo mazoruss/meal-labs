@@ -1,19 +1,18 @@
-import React        from 'react';
-import MealTile     from './MealTile';
-import Searchbar    from './Searchbar';
-import LogoDisplay  from './LogoDisplay';
-import InfoDisplay  from './InfoDisplay';
-import Instructions from './Instructions';
-import HeadBuffer   from './HeadBuffer';
-
-import { 
-  StyleSheet, 
-  View, 
+import React from 'react';
+import {
+  StyleSheet,
+  View,
   ScrollView,
-  Text,
   ActivityIndicator,
-  Dimensions 
+  Dimensions,
 } from 'react-native';
+import MealTile from './MealTile';
+import Searchbar from './Searchbar';
+import LogoDisplay from './LogoDisplay';
+import InfoDisplay from './InfoDisplay';
+import Instructions from './Instructions';
+import PriceBreakdown from './PriceBreakdown';
+import HeadBuffer from './HeadBuffer';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -32,12 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loadScreen: {
-    flex: 1, 
-    height: height - 280, 
-    width: width, 
-    justifyContent: 'center', 
-    alignItems: 'center'
-  }
+    flex: 1,
+    height: height - 280,
+    width,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default class AddMeal extends React.Component {
@@ -47,25 +46,15 @@ export default class AddMeal extends React.Component {
     this.addMeal = this.addMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoInstructions = this.gotoInstructions.bind(this);
+    this.gotoPriceBreakdown = this.gotoPriceBreakdown.bind(this);
 
     this.state = {
-      loading: false
-    }
-  }
-
-  updateMeals() {
-    fetch(userUrl + this.props.getUserId(), {
-      method: 'GET',
-      headers: { 'x-access-token': this.props.getToken() },
-    })
-    .then(res => res.json())
-    .then((data) => {
-      this.props.updateMealList(data.mealsObjs);
-    });
+      loading: false,
+    };
   }
 
   setLoading() {
-    this.setState({ loading: !this.state.loading })
+    this.setState({ loading: !this.state.loading });
   }
 
   getData(searchString) {
@@ -82,11 +71,22 @@ export default class AddMeal extends React.Component {
         this.props.updateSearchRecipes(data);
       }
     })
-    .done(() => context.setLoading())
+    .done(() => context.setLoading());
+  }
+
+  updateMeals() {
+    fetch(userUrl + this.props.getUserId(), {
+      method: 'GET',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(res => res.json())
+    .then((data) => {
+      this.props.updateMealList(data.mealsObjs);
+    });
   }
 
   addMeal(recipeId) {
-    var context = this;
+    const context = this;
 
     fetch(mealUrl, {
       method: 'POST',
@@ -100,7 +100,7 @@ export default class AddMeal extends React.Component {
       }),
 
     })
-    .then(() => context.updateMeals())
+    .then(() => context.updateMeals());
   }
 
   gotoNext(recipe) {
@@ -119,7 +119,16 @@ export default class AddMeal extends React.Component {
       component: Instructions,
       passProps: {
         uri,
-        title
+        title,
+      },
+    });
+  }
+
+  gotoPriceBreakdown(recipe) {
+    this.props.navigator.push({
+      component: PriceBreakdown,
+      passProps: {
+        recipe,
       },
     });
   }
@@ -136,19 +145,20 @@ export default class AddMeal extends React.Component {
         >
           <Searchbar enter={this.getData} />
 
-          {!this.state.loading && 
+          {!this.state.loading &&
             this.props.getSearchRecipes.map((meal, i) => (
               <MealTile
                 recipe={meal}
                 url={meal.url}
                 showInfo={this.gotoNext}
                 showInstructions={this.gotoInstructions}
+                showPriceBreakdown={this.gotoPriceBreakdown}
                 key={i}
                 addMeal={this.addMeal}
                 location="AddMeal"
               />
           ))}
-          {this.state.loading && 
+          {this.state.loading &&
             <View style={styles.loadScreen}>
               <ActivityIndicator />
             </View>
