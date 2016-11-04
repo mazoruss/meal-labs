@@ -21,20 +21,23 @@ const styles = StyleSheet.create({
   label: {
     color: '#3D3D3D',
     flex: 1,
-    fontSize: 12,
+    fontSize: 10,
     position: 'relative',
     top: 2,
     height: 10,
+    marginBottom: 5,
+    marginLeft: 3,
+    fontWeight: '100',
   },
   data: {
     flex: 2,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   dataNumber: {
-    color: '#3D3D3D',
-    fontSize: 12,
-    marginBottom: 5,
-    height: 14,
+    color: 'rgba(0,0,0,0.5)',
+    fontSize: 8,
+    paddingTop: 1,
   },
   // Bar
   bar: {
@@ -94,7 +97,7 @@ export default class AnimationTest extends React.Component {
             <Text style={styles.label}>{nutrient[0]}</Text>
             <View style={styles.data}>
               <Animated.View style={[styles.bar, { width: this.nutrients[nutrient[0]] }]} />
-              <Text style={styles.dataNumber}>{Math.round(nutrient[1])}</Text>
+              <Text style={styles.dataNumber}>{`${Math.round(nutrient[1])}% D.V.`}</Text>
             </View>
           </View>
         ))}
