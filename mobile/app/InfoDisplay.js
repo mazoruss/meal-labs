@@ -4,6 +4,7 @@ import {
   View,
   Dimensions,
   StyleSheet,
+  SegmentedControlIOS,
 } from 'react-native';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
@@ -18,6 +19,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: 'white',
+    width,
+  },
+  visualizations: {
+    width: 0.95 * width,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    // alignItems: 'center',
   },
   picture: {
     width: width * 0.9,
@@ -39,6 +48,9 @@ const styles = StyleSheet.create({
   },
   scroller: {
     marginBottom: 50,
+  },
+  segmentedControl: {
+    flexDirection: 'row',
   },
 });
 
@@ -68,69 +80,49 @@ class InfoDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: 'test',
+      selectedIndex: 0,
     };
+    console.log('props label', this.props.recipe.label);
   }
   render() {
     return (
       <View style={styles.container}>
-        <HeadBuffer />
-        <ButtonHeader navigator={this.props.navigator} />
-        <ScrollView contentContainerStyle={styles.scroller}>
-          {/* This section renders animated nutrition info */}
-          <View>
+        <View style={styles.header}>
+          <HeadBuffer />
+          <ButtonHeader navigator={this.props.navigator} name={this.props.recipe.label} />
+        </View>
+        <View style={styles.segmentedControl}>
+          <SegmentedControlIOS
+            style={{ flex: 1 }}
+            tintColor="#59838B"
+            values={['Calories', 'Nutrients']}
+            selectedIndex={this.state.selectedIndex}
+            onChange={(event) => {
+              this.setState({
+                selectedIndex: event.nativeEvent.selectedSegmentIndex,
+              });
+            }}
+          />
+        </View>
+        {/* This section renders animated nutrition info */}
+        <View style={styles.visualizations}>
+          {this.state.selectedIndex === 0 &&
             <MacrosChart
               name={this.props.recipe.label}
               nutrition={this.props.recipe.digest}
               height={width * 0.9}
               width={width * 0.9}
             />
-            <NutritionStats
-              nutrition={this.props.recipe.digest
-                .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
-            />
-          </View>
-          {/* This section renders ingredients */}
-          <View style={styles.table}>
-            <Column
-              data={this.props.recipe.ingredients}
-              name="Ingredient"
-              index="food"
-            />
-            <Column
-              data={this.props.recipe.ingredients}
-              name="Qty"
-              index="quantity"
-              alignRight
-            />
-            <Column
-              data={this.props.recipe.ingredients}
-              name="Unit"
-              index="measure"
-              alignRight
-            />
-          </View>
-          {/* This section renders nutrition info */}
-          <View style={styles.table}>
-            <Column
-              data={compileNutrition(this.props.recipe.digest)}
-              name="Nutrient"
-              index="label"
-            />
-            <Column
-              data={compileNutrition(this.props.recipe.digest)}
-              name="Qty"
-              index="totalUnit"
-              alignRight
-            />
-            <Column
-              data={compileNutrition(this.props.recipe.digest)}
-              name="Daily"
-              index="dailyPercent"
-              alignRight
-            />
-          </View>
-        </ScrollView>
+          }
+          {this.state.selectedIndex === 1 &&
+            <ScrollView contentContainerStyle={styles.scroller}>
+              <NutritionStats
+                nutrition={this.props.recipe.digest
+                  .map(nutrient => ({ label: nutrient.label, daily: nutrient.daily }))}
+              />
+            </ScrollView>
+          }
+        </View>
       </View>
     );
   }

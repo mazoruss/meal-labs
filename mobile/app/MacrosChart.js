@@ -6,13 +6,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    marginTop: 5,
+    justifyContent: 'space-around',
+    // margin: 5,
+  },
+  charts: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 5,
   },
   title: {
     color: '#3D3D3D',
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: '100',
   },
   legendText: {
@@ -27,15 +30,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '100',
   },
-  charts: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  nutritionists: {
+    color: '#3D3D3D',
+    fontSize: 8,
+    fontStyle: 'italic',
   },
   macros: {
     alignSelf: 'flex-start',
-    flex: 2,
+    flex: 27,
     marginTop: 5,
-    marginLeft: 5,
   },
   recommended: {
     alignSelf: 'center',
@@ -43,8 +46,8 @@ const styles = StyleSheet.create({
   chartsRight: {
     height: 200,
     justifyContent: 'space-between',
-    flex: 1,
     alignItems: 'center',
+    flex: 10,
   },
   legend: {
     flexDirection: 'column',
@@ -78,8 +81,7 @@ export default class MacrosChart extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> {this.props.name}</Text>
-        <Text style={styles.title}> % of Calories from...</Text>
+        <Text style={styles.title}>Calorie Breakdown (%)</Text>
         <View style={styles.charts}>
           <View style={styles.macros}>
             <PieChart
@@ -120,6 +122,10 @@ export default class MacrosChart extends React.Component {
             </View>
           </View>
         </View>
+        <Text style={styles.nutritionists}>
+          {`Nutritionists recommend that 20-35% of your daily caloric intake
+ come from fats, 40-65% from carbs, and 10-35% from protein`}
+        </Text>
       </View>
     );
   }
