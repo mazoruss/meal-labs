@@ -51,6 +51,7 @@ const Tile = ({
   url,
   showInfo,
   showInstructions,
+  showPriceBreakdown,
   addMeal,
   removeMeal,
   location,
@@ -84,6 +85,10 @@ const Tile = ({
         <Button
           onclick={() => showInfo(recipe, mealId)}
           icon="ios-analytics-outline"
+        />
+        <Button
+          onclick={() => showPriceBreakdown(recipe)}
+          icon="ios-stats-outline"
         />
         <Button
           onclick={() => showInstructions(url, recipe.label)}

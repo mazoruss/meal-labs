@@ -1,17 +1,17 @@
-import React        from 'react';
-import MealTile     from './MealTile';
-import InfoDisplay  from './InfoDisplay';
-import Instructions from './Instructions';
-import LogoDisplay  from './LogoDisplay';
-import HeadBuffer   from './HeadBuffer';
-import { 
-  StyleSheet, 
-  View, 
+import React from 'react';
+import {
+  StyleSheet,
+  View,
   ScrollView,
-  Text,
   ActivityIndicator,
-  Dimensions 
+  Dimensions,
 } from 'react-native';
+import MealTile from './MealTile';
+import InfoDisplay from './InfoDisplay';
+import Instructions from './Instructions';
+import PriceBreakdown from './PriceBreakdown';
+import LogoDisplay from './LogoDisplay';
+import HeadBuffer from './HeadBuffer';
 
 const userUrl = 'https://meal-labs.herokuapp.com/api/user/';
 const mealUrl = 'https://meal-labs.herokuapp.com/api/meal/';
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loadScreen: {
-    flex: 1, 
-    height: height - 120, 
-    width: width, 
-    justifyContent: 'center', 
-    alignItems: 'center'
-  }
+    flex: 1,
+    height: height - 120,
+    width,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default class MealList extends React.Component {
@@ -46,10 +46,11 @@ export default class MealList extends React.Component {
     this.removeMeal = this.removeMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoInstructions = this.gotoInstructions.bind(this);
+    this.gotoPriceBreakdown = this.gotoPriceBreakdown.bind(this);
 
     this.state = {
-      loading: false
-    }
+      loading: false,
+    };
   }
 
   componentWillMount() {
@@ -67,9 +68,9 @@ export default class MealList extends React.Component {
       method: 'GET',
       headers: { 'x-access-token': this.props.getToken() },
     })
-    .then(res    => res.json())
-    .then((data) => this.props.updateMealList(data.mealsObjs))
-    .done(()     => cb ? cb() : null)
+    .then(res => res.json())
+    .then(data => this.props.updateMealList(data.mealsObjs))
+    .done(() => cb ? cb() : null);
   }
 
   addMeal(recipeId) {
@@ -92,7 +93,7 @@ export default class MealList extends React.Component {
       method: 'DELETE',
       headers: { 'x-access-token': this.props.getToken() },
     })
-    .then(() => this.getData(() => this.setState({loading: false})));
+    .then(() => this.getData(() => this.setState({ loading: false })));
   }
 
   gotoNext(recipe, mealId) {
@@ -112,7 +113,16 @@ export default class MealList extends React.Component {
       component: Instructions,
       passProps: {
         uri,
-        title
+        title,
+      },
+    });
+  }
+
+  gotoPriceBreakdown(recipe) {
+    this.props.navigator.push({
+      component: PriceBreakdown,
+      passProps: {
+        recipe,
       },
     });
   }
@@ -127,7 +137,7 @@ export default class MealList extends React.Component {
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          {!this.state.loading && 
+          {!this.state.loading &&
             this.props.mealList.map((meal, i) => (
               <MealTile
                 key={i}
@@ -135,6 +145,7 @@ export default class MealList extends React.Component {
                 url={meal.recipe.url}
                 showInfo={this.gotoNext}
                 showInstructions={this.gotoInstructions}
+                showPriceBreakdown={this.gotoPriceBreakdown}
                 mealId={meal._id}
                 addMeal={this.addMeal}
                 removeMeal={this.removeMeal}
