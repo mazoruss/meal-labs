@@ -68,12 +68,9 @@ export default class AddMeal extends React.Component {
         userId: this.props.getUserId(),
         recipeId,
       }),
-<<<<<<< e17f8d63d122ed46fa703b6dabd3c410d429d74c
-    });
-=======
+
     })
     .then(() => context.updateMeals())
->>>>>>> turned shopping list into todo style checklist
   }
 
   gotoNext(recipe) {
