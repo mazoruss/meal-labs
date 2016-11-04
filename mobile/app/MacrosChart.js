@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     margin: 5,
   },
+  charts: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   title: {
     color: '#3D3D3D',
     fontSize: 24,
@@ -27,15 +31,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: '100',
   },
-  charts: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   macros: {
     alignSelf: 'flex-start',
     flex: 2,
     marginTop: 5,
-    marginLeft: 5,
   },
   recommended: {
     alignSelf: 'center',

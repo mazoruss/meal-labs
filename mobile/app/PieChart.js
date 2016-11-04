@@ -4,7 +4,7 @@
 
 /* @flow */
 import React from 'react';
-import { ART, View, StyleSheet } from 'react-native';
+import { ART, View } from 'react-native';
 import Wedge from './Wedge';
 
 const { Group, Surface } = ART;
