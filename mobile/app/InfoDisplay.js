@@ -4,6 +4,7 @@ import {
   View,
   Dimensions,
   StyleSheet,
+  SegmentedControlIOS,
 } from 'react-native';
 import Column from './Column';
 import HeadBuffer from './HeadBuffer';
@@ -40,6 +41,9 @@ const styles = StyleSheet.create({
   scroller: {
     marginBottom: 50,
   },
+  segmentedControl: {
+    flexDirection: 'row',
+  },
 });
 
 /* eslint-disable no-param-reassign */
@@ -67,6 +71,9 @@ const compileNutrition = (data) => {
 class InfoDisplay extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selectedIndex: 0,
+    };
     console.log('props label', this.props.recipe.label);
   }
   render() {
@@ -75,6 +82,18 @@ class InfoDisplay extends React.Component {
         <View style={styles.header}>
           <HeadBuffer />
           <ButtonHeader navigator={this.props.navigator} name={this.props.recipe.label} />
+        </View>
+        <View style={styles.segmentedControl}>
+          <SegmentedControlIOS
+            style={{ flex: 1 }}
+            values={['One', 'Two']}
+            selectedIndex={this.state.selectedIndex}
+            onChange={(event) => {
+              this.setState({
+                selectedIndex: event.nativeEvent.selectedSegmentIndex,
+              });
+            }}
+          />
         </View>
         <ScrollView contentContainerStyle={styles.scroller}>
           {/* This section renders animated nutrition info */}
