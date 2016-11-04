@@ -80,6 +80,7 @@ class InfoDisplay extends React.Component {
           {/* This section renders animated nutrition info */}
           <View>
             <MacrosChart
+              name={this.props.recipe.label}
               nutrition={this.props.recipe.digest}
               height={width * 0.9}
               width={width * 0.9}

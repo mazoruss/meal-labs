@@ -4,16 +4,31 @@ import PieChart from './PieChart';
 
 const styles = StyleSheet.create({
   container: {
-    // alignItems: 'center',
+    alignItems: 'center',
     flex: 1,
     marginTop: 5,
     justifyContent: 'space-between',
     margin: 5,
-    borderWidth: 1,
+  },
+  title: {
+    color: '#3D3D3D',
+    fontSize: 24,
+    fontWeight: '100',
+  },
+  legendText: {
+    color: '#3D3D3D',
+    fontSize: 12,
+    fontWeight: '100',
+  },
+  minorText: {
+    color: '#3D3D3D',
+    fontSize: 12,
+    fontStyle: 'italic',
+    alignSelf: 'center',
+    fontWeight: '100',
   },
   charts: {
     flexDirection: 'row',
-    borderWidth: 1,
     justifyContent: 'space-between',
   },
   macros: {
@@ -21,33 +36,28 @@ const styles = StyleSheet.create({
     flex: 2,
     marginTop: 5,
     marginLeft: 5,
-    // marginLeft: 5,
   },
   recommended: {
     alignSelf: 'center',
   },
   chartsRight: {
-    // alignSelf: 'flex-end',
-    // marginRight: 5,
     height: 200,
     justifyContent: 'space-between',
     flex: 1,
-    borderWidth: 1,
     alignItems: 'center',
   },
   legend: {
     flexDirection: 'column',
     alignItems: 'flex-end',
-    borderWidth: 1,
     marginTop: 20,
-    marginRight: 20,
   },
   key: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   keyColor: {
-    marginTop: 5,
+    marginLeft: 5,
+    marginTop: 4,
   },
 });
 
@@ -62,13 +72,14 @@ export default class MacrosChart extends React.Component {
       // eslint-disable-next-line no-confusing-arrow
       .map(macro => macro[0] === 'Fat' ? [macro[0], macro[1] * 9, macro[2]] : [macro[0], macro[1] * 4, macro[2]]);
 
-    this.colors = ['#4DC4E6', '#333333', '#999999', '#DF8165', '#F5F5F5', '#90C456', '#374E5C', '#4a697c'];
+    this.colors = ['#ff6b6b', '#383f51', '#dddbf1'];
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text> % of Calories from...</Text>
+        <Text style={styles.title}> {this.props.name}</Text>
+        <Text style={styles.title}> % of Calories from...</Text>
         <View style={styles.charts}>
           <View style={styles.macros}>
             <PieChart
@@ -82,7 +93,9 @@ export default class MacrosChart extends React.Component {
             <View style={styles.legend}>
               {this.macroNutrients.map((macro, index) => (
                 <View style={styles.key} key={index}>
-                  <Text> {macro[0]} </Text>
+                  <Text style={styles.legendText}>
+                    {macro[0]}
+                  </Text>
                   <View style={styles.keyColor}>
                     <PieChart
                       height={10}
@@ -95,7 +108,9 @@ export default class MacrosChart extends React.Component {
               ))}
             </View>
             <View style={styles.recommended}>
-              <Text> Recommended </Text>
+              <Text style={styles.minorText}>
+                Optimal
+              </Text>
               <PieChart
                 height={0.29 * this.props.height}
                 width={0.29 * this.props.width}
