@@ -1,11 +1,22 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import MealTile from './MealTile';
-import Searchbar from './Searchbar';
-import LogoDisplay from './LogoDisplay';
-import InfoDisplay from './InfoDisplay';
+import React        from 'react';
+import MealTile     from './MealTile';
+import Searchbar    from './Searchbar';
+import LogoDisplay  from './LogoDisplay';
+import InfoDisplay  from './InfoDisplay';
 import Instructions from './Instructions';
-import HeadBuffer from './HeadBuffer';
+import HeadBuffer   from './HeadBuffer';
+
+import { 
+  StyleSheet, 
+  View, 
+  ScrollView,
+  Text,
+  ActivityIndicator,
+  Dimensions 
+} from 'react-native';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const userUrl = 'https://meal-labs.herokuapp.com/api/user/';
 const recipeUrl = 'https://meal-labs.herokuapp.com/api/recipe/';
@@ -20,6 +31,13 @@ const styles = StyleSheet.create({
   contentContainer: {
     alignItems: 'center',
   },
+  loadScreen: {
+    flex: 1, 
+    height: height - 280, 
+    width: width, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  }
 });
 
 export default class AddMeal extends React.Component {
@@ -29,19 +47,10 @@ export default class AddMeal extends React.Component {
     this.addMeal = this.addMeal.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoInstructions = this.gotoInstructions.bind(this);
-  }
 
-  getData(searchString) {
-    fetch(recipeUrl + searchString, {
-      method: 'GET',
-      headers: { 'x-access-token': this.props.getToken() },
-    })
-    .then(res => res.json())
-    .then((data) => {
-      if (data) {
-        this.props.updateSearchRecipes(data);
-      }
-    });
+    this.state = {
+      loading: false
+    }
   }
 
   updateMeals() {
@@ -55,8 +64,29 @@ export default class AddMeal extends React.Component {
     });
   }
 
-  addMeal(recipeId) {
+  setLoading() {
+    this.setState({ loading: !this.state.loading })
+  }
+
+  getData(searchString) {
     const context = this;
+    this.setLoading();
+
+    fetch(recipeUrl + searchString, {
+      method: 'GET',
+      headers: { 'x-access-token': this.props.getToken() },
+    })
+    .then(res => res.json())
+    .then((data) => {
+      if (data) {
+        this.props.updateSearchRecipes(data);
+      }
+    })
+    .done(() => context.setLoading())
+  }
+
+  addMeal(recipeId) {
+    var context = this;
 
     fetch(mealUrl, {
       method: 'POST',
@@ -70,7 +100,7 @@ export default class AddMeal extends React.Component {
       }),
 
     })
-    .then(() => context.updateMeals());
+    .then(() => context.updateMeals())
   }
 
   gotoNext(recipe) {
@@ -84,11 +114,12 @@ export default class AddMeal extends React.Component {
     });
   }
 
-  gotoInstructions(uri) {
+  gotoInstructions(uri, title) {
     this.props.navigator.push({
       component: Instructions,
       passProps: {
         uri,
+        title
       },
     });
   }
@@ -105,17 +136,23 @@ export default class AddMeal extends React.Component {
         >
           <Searchbar enter={this.getData} />
 
-          {this.props.getSearchRecipes.map((meal, i) => (
-            <MealTile
-              recipe={meal}
-              url={meal.url}
-              showInfo={this.gotoNext}
-              showInstructions={this.gotoInstructions}
-              key={i}
-              addMeal={this.addMeal}
-              location="AddMeal"
-            />
+          {!this.state.loading && 
+            this.props.getSearchRecipes.map((meal, i) => (
+              <MealTile
+                recipe={meal}
+                url={meal.url}
+                showInfo={this.gotoNext}
+                showInstructions={this.gotoInstructions}
+                key={i}
+                addMeal={this.addMeal}
+                location="AddMeal"
+              />
           ))}
+          {this.state.loading && 
+            <View style={styles.loadScreen}>
+              <ActivityIndicator />
+            </View>
+          }
         </ScrollView>
       </View>
     );
