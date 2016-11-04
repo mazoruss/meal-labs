@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
 });
 
 const ButtonHeader = function button({ navigator, name }) {
+  const sliceName = name.length > 14 ? `${name.slice(0, 14)}...` : name;
+
   return (
     <View style={styles.header}>
       <TouchableOpacity
@@ -52,7 +54,7 @@ const ButtonHeader = function button({ navigator, name }) {
       </TouchableOpacity>
       <Text>
         <Text style={styles.headline}>
-          {name}
+          {sliceName}
         </Text>
       </Text>
     </View>
