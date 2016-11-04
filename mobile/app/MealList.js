@@ -53,22 +53,23 @@ export default class MealList extends React.Component {
   }
 
   componentWillMount() {
-    this.getData(() => this.setState({loading: false}));
+    this.getData(() => this.setLoading());
+  }
+
+  setLoading() {
+    this.setState({ loading: !this.state.loading });
   }
 
   getData(cb) {
-    this.setState({loading: true})
+    this.setLoading();
 
     fetch(userUrl + this.props.getUserId(), {
       method: 'GET',
       headers: { 'x-access-token': this.props.getToken() },
     })
-    .then(res => res.json())
-    .then((data) => {
-      this.props.updateMealList(data.mealsObjs);
-    }).done(() => {
-      if (cb) { cb(); }
-    });
+    .then(res    => res.json())
+    .then((data) => this.props.updateMealList(data.mealsObjs))
+    .done(()     => cb ? cb() : null)
   }
 
   addMeal(recipeId) {
@@ -91,7 +92,7 @@ export default class MealList extends React.Component {
       method: 'DELETE',
       headers: { 'x-access-token': this.props.getToken() },
     })
-    .then(() => this.getData());
+    .then(() => this.getData(() => this.setState({loading: false})));
   }
 
   gotoNext(recipe, mealId) {

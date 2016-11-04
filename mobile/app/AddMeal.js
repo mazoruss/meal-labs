@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   loadScreen: {
     flex: 1, 
-    height: height - 260, 
+    height: height - 280, 
     width: width, 
     justifyContent: 'center', 
     alignItems: 'center'
