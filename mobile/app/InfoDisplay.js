@@ -86,9 +86,15 @@ class InfoDisplay extends React.Component {
     this.state = {
       selectedIndex: 0,
     };
-    console.log('recipe yield--', this.props.recipe.yield);
+    console.log('props.recipe.ingredients from InfoDisplay-', props.recipe.ingredients);
   }
   render() {
+    const ingredients = this.props.recipe.ingredients
+      .map(ingredient => ({
+        ingredient: ingredient.text,
+        quantity: `${ingredient.quantity} ${ingredient.measure}`,
+      }));
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -109,7 +115,7 @@ class InfoDisplay extends React.Component {
           />
         </View>
         {this.state.selectedIndex === 2 &&
-          <Ingredients />
+          <Ingredients recipe={ingredients} />
         }
         {/* This section renders animated nutrition info */}
         <View style={styles.visualizations}>
