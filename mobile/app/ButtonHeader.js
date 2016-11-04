@@ -30,31 +30,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const ButtonHeader = ({ navigator, name }) => (
-  <View style={styles.header}>
-    <TouchableOpacity
-      style={styles.iconButton}
-      onPress={() => { navigator.pop(); }}
-      hitSlop={{
-        top: 10,
-        bottom: 10,
-        left: 20,
-        right: 20,
-      }}
-    >
-      <Ionicons
-        style={{ backgroundColor: 'transparent', width: 50 }}
-        name={'ios-arrow-back'}
-        size={40}
-        color="white"
-      />
-    </TouchableOpacity>
-    <Text>
-      <Text style={styles.headline}>
-        {name}
+const ButtonHeader = function button({ navigator, name }) {
+  return (
+    <View style={styles.header}>
+      <TouchableOpacity
+        style={styles.iconButton}
+        onPress={() => { navigator.pop(); }}
+        hitSlop={{
+          top: 10,
+          bottom: 10,
+          left: 20,
+          right: 20,
+        }}
+      >
+        <Ionicons
+          style={{ backgroundColor: 'transparent', width: 50 }}
+          name={'ios-arrow-back'}
+          size={40}
+          color="white"
+        />
+      </TouchableOpacity>
+      <Text>
+        <Text style={styles.headline}>
+          {name}
+        </Text>
       </Text>
-    </Text>
-  </View>
-);
+    </View>
+  );
+};
 
 export default ButtonHeader;
