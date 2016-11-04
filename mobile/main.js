@@ -1,9 +1,9 @@
 import Exponent, { Font } from 'exponent';
 import React from 'react';
 import { Navigator } from 'react-native';
-
 import NavBar from './app/NavBar';
 import Login from './app/Login';
+import compileList from './lib/compileList';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,29 +23,54 @@ class App extends React.Component {
     this.updateUserId        = this.updateUserId.bind(this);
     this.updateSearchRecipes = this.updateSearchRecipes.bind(this);
     this.renderScene         = this.renderScene.bind(this);
-    this.removeMealFromList  = this.removeMealFromList.bind(this);
-  }
-
-  componentDidMount() {
-
+    this.setShoppingList     = this.setShoppingList.bind(this);
+    this.setChecked          = this.setChecked.bind(this);
   }
 
   getToken() { return this.state.token; }
   getUserId() { return this.state.userId; }
-  updateMealList(mealList) { this.setState({ mealList }); }
   updateToken(token) { this.setState({ token }); }
   updateUserId(userId) { this.setState({ userId }); }
   updateSearchRecipes(searchRecipes) { this.setState({ searchRecipes }); }
+  setShoppingList (shoppingList) { this.setState({shoppingList}) }
 
-  removeMealFromList (meal) {
-    console.log('REMOVING', this.state.mealList.length)
+  updateMealList(mealList) { 
+    const context = this;
+    this.setState({ mealList }); 
+    setTimeout(() => context.updateShoppingList(), 10)
+  }
 
+  updateShoppingList () {
+    const newList = compileList(this.state.mealList);
+    const oldList = this.state.shoppingList.slice();
 
-    this.setState({
-      mealList: this.state.mealList.filter(m => m.recipe.label !== meal.label)
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+      for(var i = 0, len = myArray.length; i < len; i++) {
+        if (myArray[i][property] === searchTerm) return i;
+      }
+      return -1;
+    }
+    
+    newList.forEach(item => {
+      var i = arrayObjectIndexOf(oldList, item.ingredient, 'ingredient')
+
+      if (i !== -1) { item.checked = oldList[i].checked }
     });
 
-    setTimeout(()=> console.log('AFTER',this.state.mealList.length), 100)
+    this.setState({ shoppingList: newList });
+  }
+
+  setChecked(i) {
+    const currentCheck = this.state.shoppingList[i].checked;
+    this.setState({
+      shoppingList: [
+        ...this.state.shoppingList.slice(0, i),
+        Object.assign(this.state.shoppingList[i], {
+          checked: !currentCheck
+        }),
+        ...this.state.shoppingList.slice(i + 1)
+      ]
+    });
   }
 
   renderScene(route, navigator) {
@@ -61,7 +86,9 @@ class App extends React.Component {
         updateToken={this.updateToken}
         updateUserId={this.updateUserId}
         updateSearchRecipes={this.updateSearchRecipes}
-        removeMealFromList={this.removeMealFromList}
+        shoppingList={this.state.shoppingList}
+        setShoppingList={this.setShoppingList}
+        setChecked={this.setChecked}
       />
     );
   }
@@ -80,4 +107,3 @@ class App extends React.Component {
 }
 
 Exponent.registerRootComponent(App);
-
