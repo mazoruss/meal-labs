@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
   },
   segmentedControl: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    maxWidth: width,
+    padding: 10,
   },
 });
 
