@@ -6,8 +6,8 @@ const APIURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recip
 
 module.exports = {
   getPriceBreakdown: (req, res) => {
-    const ingredients = req.params.ingredients;
-    const options = {
+    var ingredients = req.params.ingredients;
+    var options = {
       method: 'POST',
       uri: APIURL,
       headers: {
@@ -27,29 +27,29 @@ module.exports = {
 
     rp(options)
       .then((body) => {
-        const prices = cheerio.load(body).html('#spoonacular-price-estimator-script');
-        const start = prices.search('dataPoints') + 12;
-        let end = start;
+        var prices = cheerio.load(body).html('#spoonacular-price-estimator-script');
+        var start = prices.search('dataPoints') + 12;
+        var end = start;
         while (prices[end] !== ']') { end += 1; }
-        const dataPoints = prices.substring(start, end + 1);
-        const pricesArray = [];
-        let counter = 0;
-        for (let i = 0; i < dataPoints.length; i += 1) {
+        var dataPoints = prices.substring(start, end + 1);
+        var pricesArray = [];
+        var counter = 0;
+        for (var i = 0; i < dataPoints.length; i += 1) {
           if (dataPoints.substring(i, i + 2) === 'y:') {
-            let amount = '';
-            let j = i + 3;
+            var amount = '';
+            var j = i + 3;
             while (dataPoints[j + 1] !== ',') {
               amount = amount.concat(dataPoints[j]);
               j += 1;
             }
-            let value = Number(amount);
+            var value = Number(amount);
             value /= 100.0;
             pricesArray.push({ price: value });
             counter += 1;
           }
           if (dataPoints.substring(i, i + 11) === 'indexLabel:') {
-            let label = '';
-            let j = i + 12;
+            var label = '';
+            var j = i + 12;
             while (dataPoints[j + 1] !== '}') {
               label = label.concat(dataPoints[j]);
               j += 1;
