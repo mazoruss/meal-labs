@@ -17,16 +17,21 @@ const width = Dimensions.get('window').width;
 export default class ShoppingList extends React.Component {
   constructor(props) {
     super(props);
+    console.log('shoppingList', this.props.shoppingList);
   }
 
   render() {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <LogoDisplay share={true}/>
+        <LogoDisplay
+          share={true}
+          shoppingList={
+            this.props.shoppingList.map(item => `${item.ingredient}- ${item.quantity}\n`)
+          } />
         <ScrollView>
           {this.props.shoppingList.map((item, i) => (
-            <View 
+            <View
               key={i}
               style={[styles.row, 
                 {backgroundColor: i % 2 === 0 

@@ -36,20 +36,19 @@ class LogoDisplay extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      text: 'stuff',
-    };
     this.showShareActionSheet = this.showShareActionSheet.bind(this);
   }
 
   showShareActionSheet() {
+    let shoppingList = '';
+    this.props.shoppingList.forEach((item) => {
+      shoppingList += item;
+    });
+
     ActionSheetIOS.showShareActionSheetWithOptions({
-      url: 'https://www.google.com',
-      message: 'message to go with the shared url',
-      subject: 'a subject to go in the email heading',
-      excludedActivityTypes: [
-        'com.apple.UIKit.activity.PostToTwitter',
-      ],
+      url: 'https://github.com/language-labs/meal-labs',
+      message: shoppingList,
+      subject: 'My shoppingList',
     },
     error => alert(error),
     (success, method) => {
