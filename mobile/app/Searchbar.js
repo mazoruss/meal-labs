@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 5,
     right: 5,
-    position: 'absolute'
+    position: 'absolute',
+    borderRadius: 8
   }
 });
 
@@ -101,6 +102,7 @@ export default class Searchbar extends React.Component {
         />
         <TouchableHighlight
           onPress={() => dismissKeyboard() }
+          underlayColor={'rgba(0,0,0,.1)'}
           style={this.state.focused 
             ? styles.cancelButton 
             : {width: 0, opacity: 0, height: 30}}
