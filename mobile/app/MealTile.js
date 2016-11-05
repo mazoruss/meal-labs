@@ -1,6 +1,7 @@
-import React          from 'react';
-import Button         from './Button';
-import { Components } from 'exponent';
+import React           from 'react';
+import Button          from './Button';
+import AnimatedButtons from './AnimatedButtons';
+import { Components }  from 'exponent';
 import {
   View,
   Image,
@@ -61,6 +62,17 @@ const Tile = ({
       style={styles.picture}
       source={{ uri: recipe.image }}
     >
+      <AnimatedButtons 
+        recipe={recipe}
+        mealId={mealId}
+        url={url}
+        showInfo={showInfo}
+        showInstructions={showInstructions}
+        showPriceBreakdown={showPriceBreakdown}
+        addMeal={addMeal}
+        removeMeal={removeMeal}
+        location={location}
+      />
       <Components.BlurView
         style={styles.textBackground}
         tintEffect="light"
@@ -69,32 +81,6 @@ const Tile = ({
           {recipe.label}
         </Text>
       </Components.BlurView>
-      <View style={styles.buttonsWrapper}>
-        { location === 'MealList' &&
-          <Button
-            onclick={() => { removeMeal(recipe._id, mealId); }}
-            icon="ios-remove"
-          />
-        }
-        { location === 'AddMeal' &&
-          <Button
-            onclick={() => { addMeal(recipe._id); }}
-            icon="ios-add"
-          />
-        }
-        <Button
-          onclick={() => showInfo(recipe, mealId)}
-          icon="ios-analytics-outline"
-        />
-        <Button
-          onclick={() => showPriceBreakdown(recipe)}
-          icon="ios-stats-outline"
-        />
-        <Button
-          onclick={() => showInstructions(url, recipe.label)}
-          icon="ios-link-outline"
-        />
-      </View>
     </Image>
   </View>
 );

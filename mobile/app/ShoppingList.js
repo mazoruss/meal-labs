@@ -9,7 +9,7 @@ import {
   ScrollView, 
   Dimensions, 
   Text,
-  TouchableOpacity 
+  TouchableOpacity,
 } from 'react-native';
 
 const width = Dimensions.get('window').width;
