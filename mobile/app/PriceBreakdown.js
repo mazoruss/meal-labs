@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
+import PieChart from './PieChart';
 
 const priceUrl = 'https://meal-labs.herokuapp.com/api/price/';
 const width = Dimensions.get('window').width;
@@ -18,11 +19,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
+    borderWidth: 1,
   },
   contentContainer: {
     backgroundColor: '#fff',
     alignItems: 'center',
+    width,
   },
   loadScreen: {
     flex: 1,
@@ -30,6 +34,11 @@ const styles = StyleSheet.create({
     width,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  pieChart: {
+    alignSelf: 'flex-start',
+    flex: 27,
+    marginTop: 5,
   },
 });
 
@@ -67,6 +76,9 @@ export default class PriceBreakdown extends React.Component {
     .then(res => res.json())
     .then((data) => {
       console.log(data);
+      this.prices = data.map(item => item.price);
+      this.names = data.map(item => item.text);
+      // getting data here
     })
     .done(() => cb ? cb() : null);
   }
@@ -82,11 +94,14 @@ export default class PriceBreakdown extends React.Component {
           alwaysBounceVertical
         >
           {!this.state.loading &&
-            <Text
-              style={{ width }}
-            >
-              hello world
-            </Text>
+            <View style={styles.pieChart}>
+              <PieChart
+                height={0.5 * height}
+                width={0.5 * width}
+                data={this.prices}
+                colors={['#e2ccbb', '#e0b26e', '#423363', '#34252e']}
+              />
+            </View>
           }
           {this.state.loading &&
             <View style={styles.loadScreen}>

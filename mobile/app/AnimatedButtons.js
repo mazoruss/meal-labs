@@ -96,15 +96,6 @@ export default class AnimatedButtons extends React.Component {
         </View>
         <View style={showing ? styles.showing : styles.hidden}>
           <Button
-            icon="ios-cash-outline"
-            onclick={() => {
-              showPriceBreakdown(recipe)
-              this.toggleButtons()
-            }}
-          />
-        </View>
-        <View style={showing ? styles.showing : styles.hidden}>
-          <Button
             icon="ios-link-outline"
             onclick={() => {
               showInstructions(url, recipe.label)
