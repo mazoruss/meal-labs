@@ -137,14 +137,11 @@ export default class AddMeal extends React.Component {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <LogoDisplay />
-
+        <Searchbar enter={this.getData} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical
         >
-          <Searchbar enter={this.getData} />
-
           {!this.state.loading &&
             this.props.getSearchRecipes.map((meal, i) => (
               <MealTile

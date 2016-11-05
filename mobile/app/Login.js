@@ -115,6 +115,7 @@ export default class Login extends React.Component {
   gotoNext() {
     this.props.navigator.push({
       component: MealList,
+      name: 'mealList',
       passProps: {
       },
     });

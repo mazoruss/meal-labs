@@ -77,7 +77,7 @@ const Button = ({ text, icon, onclick }) => {
           style={{ backgroundColor: 'transparent' }}
           name={icon}
           size={30}
-          color="black"
+          color="rgba(0,0,0,.7)"
         />
       </Components.BlurView>
     </TouchableOpacity>

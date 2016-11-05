@@ -28,25 +28,29 @@ const styles = StyleSheet.create({
   },
 });
 
-const moveTo = (navigator, component) => {
-  navigator.replace({ component });
+const moveTo = (navigator, component, name) => {
+  navigator.replace({ name, component});
 };
 
 const NavBar = (props) => {
   if (props.navigator.getCurrentRoutes().length > 1) {
+
+    const routes = props.navigator.getCurrentRoutes();
+    const name = routes[routes.length - 1].name || '';
+    console.log(name)
     return (
       <View style={styles.container}>
         <Button
-          icon="ios-list"
-          onclick={() => moveTo(props.navigator, MealList)}
+          icon={name === 'mealList' ? 'ios-bookmarks' : 'ios-bookmarks-outline'}
+          onclick={() => moveTo(props.navigator, MealList, 'mealList')}
         />
         <Button
-          icon="ios-basket-outline"
-          onclick={() => moveTo(props.navigator, ShoppingList)}
+          icon={name === 'shoppingList' ? 'ios-basket' : 'ios-basket-outline'}
+          onclick={() => moveTo(props.navigator, ShoppingList, 'shoppingList')}
         />
         <Button
-          icon="ios-search-outline"
-          onclick={() => moveTo(props.navigator, AddMeal)}
+          icon={name === 'addMeal' ? 'ios-search' : 'ios-search-outline'}
+          onclick={() => moveTo(props.navigator, AddMeal, 'addMeal')}
         />
       </View>
     );
