@@ -111,7 +111,7 @@ class InfoDisplay extends React.Component {
           }
         </View>
         {this.state.selectedIndex === 2 &&
-          <View style={{ flexDirection: 'column' }}>
+          <View>
             <Ingredients recipe={ingredients} />
           </View>
         }
