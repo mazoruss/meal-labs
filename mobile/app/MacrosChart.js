@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'space-around',
-    // margin: 5,
   },
   charts: {
     flexDirection: 'row',
@@ -26,9 +25,9 @@ const styles = StyleSheet.create({
   minorText: {
     color: '#3D3D3D',
     fontSize: 12,
-    fontStyle: 'italic',
     alignSelf: 'center',
     fontWeight: '100',
+    marginBottom: 3,
   },
   nutritionists: {
     color: '#3D3D3D',
