@@ -3,11 +3,11 @@ import LogoDisplay    from './LogoDisplay';
 import HeadBuffer     from './HeadBuffer';
 import compileList    from '../lib/compileList';
 import CheckBox       from './CheckBox';
-import { 
-  StyleSheet, 
-  View, 
-  ScrollView, 
-  Dimensions, 
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Dimensions,
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -23,7 +23,7 @@ export default class ShoppingList extends React.Component {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <LogoDisplay />
+        <LogoDisplay share={true}/>
         <ScrollView>
           {this.props.shoppingList.map((item, i) => (
             <View 

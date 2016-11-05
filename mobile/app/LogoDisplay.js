@@ -3,10 +3,12 @@ import {
   Dimensions,
   Text,
   StyleSheet,
+  ActionSheetIOS,
 } from 'react-native';
 
 import React from 'react';
 import styleVariables from '../styleVariables';
+import Button from './Button';
 
 const { orange } = styleVariables;
 const width = Dimensions.get('window').width;
@@ -27,10 +29,51 @@ const styles = StyleSheet.create({
   },
 });
 
-const LogoDisplay = () => (
-  <View style={styles.logo}>
-    <Text style={styles.headline}>MEAL. LABS</Text>
-  </View>
-);
+
+class LogoDisplay extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: 'stuff',
+    };
+    this.showShareActionSheet = this.showShareActionSheet.bind(this);
+  }
+
+  showShareActionSheet() {
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      url: 'https://www.google.com',
+      message: 'message to go with the shared url',
+      subject: 'a subject to go in the email heading',
+      excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter',
+      ],
+    },
+    error => alert(error),
+    (success, method) => {
+      let text;
+      if (success) {
+        text = `Shared via ${method}`;
+      } else {
+        text = 'You didn\'t share';
+      }
+      this.setState({ text });
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.logo}>
+        {this.props.share &&
+          <Button
+            onclick={this.showShareActionSheet}
+            icon="ios-share"
+          />
+        }
+        <Text style={styles.headline}>MEAL. LABS</Text>
+      </View>
+    );
+  }
+};
 
 export default LogoDisplay;
