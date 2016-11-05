@@ -4,7 +4,9 @@ import {
   Text,
   StyleSheet,
   ActionSheetIOS,
+  TouchableOpacity
 } from 'react-native';
+import { Ionicons } from '@exponent/vector-icons';
 
 import React from 'react';
 import styleVariables from '../styleVariables';
@@ -64,13 +66,20 @@ class LogoDisplay extends React.Component {
   render() {
     return (
       <View style={styles.logo}>
-        {this.props.share &&
-          <Button
-            onclick={this.showShareActionSheet}
-            icon="ios-share"
-          />
-        }
         <Text style={styles.headline}>MEAL. LABS</Text>
+        {this.props.share &&
+          <TouchableOpacity 
+            style={{position: 'absolute', top: 5, left: 20}}
+            onPress={this.showShareActionSheet}
+          >
+            <Ionicons
+              style={{ backgroundColor: 'transparent' }}
+              name='ios-share-outline'
+              size={30}
+              color="white"
+            />
+          </TouchableOpacity>
+        }
       </View>
     );
   }
