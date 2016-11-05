@@ -81,7 +81,7 @@ class InfoDisplay extends React.Component {
           <SegmentedControlIOS
             style={{ flex: 1 }}
             tintColor="#59838B"
-            values={['Ingredients', 'Nutrients', 'Calories']}
+            values={['Calories', 'Nutrients', 'Ingredients']}
             selectedIndex={this.state.selectedIndex}
             onChange={(event) => {
               this.setState({
@@ -90,13 +90,16 @@ class InfoDisplay extends React.Component {
             }}
           />
         </View>
-        {this.state.selectedIndex === 0 &&
-          <View style={{ flexDirection: 'column' }}>
-            <Ingredients recipe={ingredients} />
-          </View>
-        }
         {/* This section renders animated nutrition info */}
         <View style={styles.visualizations}>
+          {this.state.selectedIndex === 0 &&
+            <MacrosChart
+              name={this.props.recipe.label}
+              nutrition={this.props.recipe.digest}
+              height={width * 0.9}
+              width={width * 0.9}
+            />
+          }
           {this.state.selectedIndex === 1 &&
             <ScrollView contentContainerStyle={styles.scroller}>
               <NutritionStats
@@ -106,15 +109,12 @@ class InfoDisplay extends React.Component {
               />
             </ScrollView>
           }
-          {this.state.selectedIndex === 2 &&
-            <MacrosChart
-              name={this.props.recipe.label}
-              nutrition={this.props.recipe.digest}
-              height={width * 0.9}
-              width={width * 0.9}
-            />
-          }
         </View>
+        {this.state.selectedIndex === 2 &&
+          <View style={{ flexDirection: 'column' }}>
+            <Ingredients recipe={ingredients} />
+          </View>
+        }
       </View>
     );
   }
