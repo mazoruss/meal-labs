@@ -79,25 +79,25 @@ export default class Searchbar extends React.Component {
     return (
       <View style={styles.searchBarWrapper}>
         <TextInput
-          style={this.state.focused 
-            ? styles.searchBarFocused 
-            : styles.searchBar}
           underlineColorAndroid="transparent"
           value={this.state.text}
           onChangeText={text => this.setState({ text })}
           placeholder="Search Meals..."
+          returnKeyType={'search'}
+          clearButtonMode={'while-editing'}
+          blurOnSubmit={true}
+          onFocus={() => this.toggleFocus(true)}
+          style={this.state.focused 
+            ? styles.searchBarFocused 
+            : styles.searchBar}
           onSubmitEditing={() => {
             this.props.enter(this.state.text);
             this.reset();
           }}
-          onFocus={() => this.toggleFocus(true)}
-          onBlur={()  => {
+          onBlur={() => {
             this.toggleFocus(false)
             this.reset()
           }}
-          returnKeyType={'search'}
-          clearButtonMode={'while-editing'}
-          blurOnSubmit={true}
         />
         <TouchableHighlight
           onPress={() => dismissKeyboard() }
