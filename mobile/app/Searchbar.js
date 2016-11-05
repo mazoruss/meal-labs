@@ -81,11 +81,11 @@ export default class Searchbar extends React.Component {
         <TextInput
           underlineColorAndroid="transparent"
           value={this.state.text}
-          onChangeText={text => this.setState({ text })}
           placeholder="Search Meals..."
           returnKeyType={'search'}
           clearButtonMode={'while-editing'}
           blurOnSubmit={true}
+          onChangeText={text => this.setState({ text })}
           onFocus={() => this.toggleFocus(true)}
           style={this.state.focused 
             ? styles.searchBarFocused 
