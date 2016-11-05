@@ -2,12 +2,14 @@ import React from 'react';
 import { Text, View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: 'white',
+    height: height - 180,
+    justifyContent: 'flex-start'
   },
   row: {
     width,
@@ -22,24 +24,26 @@ const styles = StyleSheet.create({
 });
 
 const Ingredients = ({ recipe }) => (
-  <ScrollView styles={styles.container}>
-    {recipe.map((item, i) => (
-      <View
-        key={i}
-        style={[styles.row,
-          { backgroundColor: i % 2 === 0
-            ? 'rgba(0,0,0,.1)'
-            : 'transparent' },
-        ]}
-      >
-        <View>
-          <Text style={{ fontWeight: '100' }} >
-            {item.ingredient}
-          </Text>
+  <View style={styles.container} >
+    <ScrollView>
+      {recipe.map((item, i) => (
+        <View
+          key={i}
+          style={[styles.row,
+            { backgroundColor: i % 2 === 0
+              ? 'rgba(0,0,0,.1)'
+              : 'transparent' },
+          ]}
+        >
+          <View>
+            <Text style={{ fontWeight: '100' }} >
+              {item.ingredient}
+            </Text>
+          </View>
         </View>
-      </View>
-    ))}
-  </ScrollView>
+      ))}
+    </ScrollView>
+  </View>
 );
 
 export default Ingredients;

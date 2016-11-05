@@ -31,13 +31,19 @@ export default class AnimatedButtons extends React.Component {
     super(props)
 
     this.state = {
-      showButtons: false
+      showButtons: false,
+      bookmarked: false
     }
   }
 
   toggleButtons() {
     LayoutAnimation.spring();
     this.setState({showButtons: !this.state.showButtons})
+  }
+
+  addBookmark(id) {
+    this.props.addMeal(id);
+    this.setState({bookmarked: true}); 
   }
 
   render() {
@@ -55,6 +61,7 @@ export default class AnimatedButtons extends React.Component {
     } = this.props
 
     const showing = this.state.showButtons;
+    const bookmarked = this.state.bookmarked;
 
     return (
       <View style={styles.buttonsWrapper}>
@@ -69,27 +76,40 @@ export default class AnimatedButtons extends React.Component {
         { location === 'AddMeal' &&
           <View style={showing ? styles.showing : styles.hidden}>
             <Button
-              onclick={() => { addMeal(recipe._id); }}
-              icon="ios-add"
+              icon={bookmarked 
+                ? "ios-bookmark" 
+                : "ios-bookmark-outline"}
+              onclick={() => { 
+                bookmarked ? null : this.addBookmark(recipe._id)
+              }}
             />
           </View>
         }
         <View style={showing ? styles.showing : styles.hidden}>
           <Button
-            onclick={() => showInfo(recipe, mealId)}
             icon="ios-pie-outline"
+            onclick={() => {
+              showInfo(recipe, mealId)
+              this.toggleButtons()
+            }}
           />
         </View>
         <View style={showing ? styles.showing : styles.hidden}>
           <Button
-            onclick={() => showPriceBreakdown(recipe)}
             icon="ios-cash-outline"
+            onclick={() => {
+              showPriceBreakdown(recipe)
+              this.toggleButtons()
+            }}
           />
         </View>
         <View style={showing ? styles.showing : styles.hidden}>
           <Button
-            onclick={() => showInstructions(url, recipe.label)}
             icon="ios-link-outline"
+            onclick={() => {
+              showInstructions(url, recipe.label)
+              this.toggleButtons()
+            }}
           />
         </View>
         <View>
