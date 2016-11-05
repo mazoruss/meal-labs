@@ -6,11 +6,11 @@ import {
   StyleSheet,
   SegmentedControlIOS,
 } from 'react-native';
-import Column from './Column';
 import HeadBuffer from './HeadBuffer';
 import ButtonHeader from './ButtonHeader';
 import NutritionStats from './NutritionStats';
 import MacrosChart from './MacrosChart';
+import Ingredients from './Ingredients';
 
 const width = Dimensions.get('window').width;
 
@@ -57,37 +57,20 @@ const styles = StyleSheet.create({
   },
 });
 
-/* eslint-disable no-param-reassign */
-const compileNutrition = (data) => {
-  const result = [];
-  data.forEach((item) => {
-    result.push(item);
-    if (item.sub) {
-      item.sub.forEach((subItem) => {
-        subItem.label = ` ${subItem.label}`;
-        result.push(subItem);
-      });
-    }
-  });
-  result.forEach((item) => {
-    const totalUnit = Number(Number(item.total).toFixed(2)).toString() + item.unit;
-    item.totalUnit = totalUnit;
-    const dailyPercent = `${Number(Number(item.daily).toFixed(1)).toString()}%`;
-    item.dailyPercent = dailyPercent;
-  });
-  return result;
-};
-/* eslint-enable no-param-reassign */
-
 class InfoDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedIndex: 0,
     };
-    console.log('recipe yield--', this.props.recipe.yield);
+    console.log('props.recipe.ingredients from InfoDisplay-', props.recipe.ingredients);
   }
   render() {
+    const ingredients = this.props.recipe.ingredients
+      .map(ingredient => ({
+        ingredient: ingredient.text,
+      }));
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -98,7 +81,7 @@ class InfoDisplay extends React.Component {
           <SegmentedControlIOS
             style={{ flex: 1 }}
             tintColor="#59838B"
-            values={['Calories', 'Nutrients']}
+            values={['Calories', 'Nutrients', 'Ingredients']}
             selectedIndex={this.state.selectedIndex}
             onChange={(event) => {
               this.setState({
@@ -127,6 +110,11 @@ class InfoDisplay extends React.Component {
             </ScrollView>
           }
         </View>
+        {this.state.selectedIndex === 2 &&
+          <View style={{ flexDirection: 'column' }}>
+            <Ingredients recipe={ingredients} />
+          </View>
+        }
       </View>
     );
   }
