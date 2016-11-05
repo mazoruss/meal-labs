@@ -23,6 +23,7 @@ export default class ShoppingList extends React.Component {
     return (
       <View style={styles.container}>
         <HeadBuffer />
+        <LogoDisplay />
         <ScrollView>
           {this.props.shoppingList.map((item, i) => (
             <View 
