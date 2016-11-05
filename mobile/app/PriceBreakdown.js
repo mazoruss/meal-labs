@@ -1,7 +1,7 @@
 import React from 'react';
 import {
+  WebView,
   View,
-  Text,
   ScrollView,
   ActivityIndicator,
   Dimensions,
@@ -40,6 +40,7 @@ export default class PriceBreakdown extends React.Component {
 
     this.state = {
       loading: false,
+      html: '',
     };
   }
 
@@ -65,7 +66,10 @@ export default class PriceBreakdown extends React.Component {
       headers: { 'x-access-token': this.props.getToken() },
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then((data) => {
+      // this.setState({ html: data });
+      console.log(data);
+    })
     .done(() => cb ? cb() : null);
   }
 
@@ -80,11 +84,11 @@ export default class PriceBreakdown extends React.Component {
           alwaysBounceVertical
         >
           {!this.state.loading &&
-            <Text
+            <WebView
               style={{ width }}
-            >
-              hello world
-            </Text>
+              source={{ html: this.state.html }}
+              startInLoadingState={true}
+            />
           }
           {this.state.loading &&
             <View style={styles.loadScreen}>
