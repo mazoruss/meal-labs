@@ -137,7 +137,7 @@ export default class AddMeal extends React.Component {
     return (
       <View style={styles.container}>
         <HeadBuffer />
-        <LogoDisplay />
+       
 
         <ScrollView
           showsVerticalScrollIndicator={false}

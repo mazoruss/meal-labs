@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    maxHeight: height * 0.7,
+    height: height - 180,
+    justifyContent: 'flex-start'
   },
   row: {
     width,
