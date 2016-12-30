@@ -29,15 +29,14 @@ const styles = StyleSheet.create({
 });
 
 const moveTo = (navigator, component, name) => {
-  navigator.replace({ name, component});
+  navigator.replace({ name, component });
 };
 
 const NavBar = (props) => {
   if (props.navigator.getCurrentRoutes().length > 1) {
-
     const routes = props.navigator.getCurrentRoutes();
     const name = routes[routes.length - 1].name || '';
-    console.log(name)
+    console.log(name);
     return (
       <View style={styles.container}>
         <Button

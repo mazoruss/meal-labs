@@ -32,7 +32,7 @@ class App extends React.Component {
   updateToken(token) { this.setState({ token }); }
   updateUserId(userId) { this.setState({ userId }); }
   updateSearchRecipes(searchRecipes) { this.setState({ searchRecipes }); }
-  setShoppingList (shoppingList) { this.setState({shoppingList}) }
+  setShoppingList(shoppingList) { this.setState({shoppingList}) }
 
   updateMealList(mealList) { 
     const context = this;
@@ -40,7 +40,7 @@ class App extends React.Component {
     setTimeout(() => context.updateShoppingList(), 10)
   }
 
-  updateShoppingList () {
+  updateShoppingList() {
     const newList = compileList(this.state.mealList);
     const oldList = this.state.shoppingList.slice();
 
